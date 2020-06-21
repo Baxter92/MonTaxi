@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MonTaxi</string>
+    <string name="step_two_title">Travaillez n\'importe quand, n\'importe où</string>
+    <string name="step_two_desc">vous pouvez aller en ligne pour gagner de l\'argent quand vous le souhaitez. \nMonTaxi est disponible 24/7</string>
+
+    <string name="skip">Skip</string>
+    <string-array name="titles">
+        <item>Commencez à gagner avec MonTaxi</item>
+        <item>Travaillez n\'importe quand, n\'importe où</item>
+        <item>Obtenez des instructions dans l\'application</item>
+    </string-array>
+    <string-array name="descriptions">
+        <item></item>
+        <item>vous pouvez aller en ligne pour gagner de l\'argent quand vous le souhaitez. \nMonTaxi est disponible 24/7</item>
+        <item>Avec la navigation dans l\'application, \ nfaire connaître l\'emplacement et la destination de chaque utilisateur est simple</item>
+    </string-array>
+</resources>
