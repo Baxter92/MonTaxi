@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    tools:context=".SignInActivity">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/signinprocess"
+        android:layout_weight="1.5"/>
+
+
+</LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/card_signin"
+        android:layout_height="@dimen/card_signin"
+        android:background="@color/white"
+        android:layout_marginRight="100dp"
+        app:cardCornerRadius="15dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        app:cardElevation="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_in_signin"
+            android:orientation="vertical"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="#393939"
+                android:lineSpacingExtra="1.7sp"
+                android:text="Hi,"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <ImageView
+                android:layout_width="64dp"
+                android:layout_height="23dp"
+                android:src="@drawable/mon_taxi"
+                />
+                <LinearLayout
+                    android:layout_width="30dp"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@color/black">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="6sp"
+                        android:textColor="#fff301"
+                        android:text="DRIVER"
+                        android:letterSpacing="0.11"
+                        android:lineSpacingExtra="1sp"
+                        android:gravity="center_horizontal"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:weightSum="4"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+
+                    <EditText
+                        android:id="@+id/country"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".9"
+                        android:hint="Country"
+                        android:inputType="text"
+                        android:textSize="8sp"
+                        android:textColor="#393939"
+                        android:drawablePadding="21dip"
+                        android:drawableLeft="@drawable/circle_green"
+                        android:drawableRight="@drawable/circle_grey"
+                         />
+
+
+                    <EditText
+                        android:id="@+id/phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".9"
+                        android:hint="Phone Number"
+                        android:inputType="text"
+                        android:textSize="8sp"
+                        android:textColor="#393939"
+                        android:maxLines="1"
+                        android:drawablePadding="21dip"
+                        android:drawableLeft="@drawable/smartphone_2"
+                        android:drawableRight="@drawable/circle_grey"
+                        android:singleLine="true" />
+
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight=".9"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:textSize="8sp"
+                        android:textColor="#393939"
+                        android:maxLines="1"
+                        android:drawablePadding="21dip"
+                        android:drawableLeft="@drawable/lock_2"
+                        android:drawableRight="@drawable/circle_grey"
+                        android:singleLine="true" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.3">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="7.6sp"
+                        android:layout_gravity="end"
+                        android:textColor="#ff0900"
+                        android:lineSpacingExtra="1sp"
+                        tools:text="Forgot password ?"/>
+                    <Button
+                        android:id="@+id/email_sign_in_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="23dp"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/btn_signin"
+                        android:text="Sign In"
+                        android:textSize="8.3sp"
+                        android:textColor="#393939" />
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

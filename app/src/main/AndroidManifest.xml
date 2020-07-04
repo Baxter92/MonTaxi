@@ -9,9 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-        <activity android:name=".activities.SteppersActivity" android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"/>
-        <activity android:name=".MainActivity" android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden"/>
-        <activity android:name=".activities.SplashActivity" android:screenOrientation="landscape" android:configChanges="orientation|keyboardHidden">
+        <activity android:name=".SignInActivity"></activity>
+        <activity
+            android:name=".activities.SteppersActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.SplashActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

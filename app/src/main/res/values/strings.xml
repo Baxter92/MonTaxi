@@ -2,6 +2,7 @@
     <string name="app_name">MonTaxi</string>
     <string name="step_two_title">Work anytime, anywhere</string>
     <string name="step_two_desc">you can go online to make money whenever you want.\nMonTaxi is available 24/7</string>
+    <string name="recorver_two">Please input the pin you received by sms to *******89</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">
