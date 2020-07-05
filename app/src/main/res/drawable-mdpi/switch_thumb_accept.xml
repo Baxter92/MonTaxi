@@ -17,10 +17,10 @@
 
 </shape>
 </item>
-
-    <item android:width="10dp" android:height="10dp"
+    <item
+        android:width="10dp" android:height="10dp"
         android:gravity="center">
         <bitmap android:src="@drawable/ic_taxi"
-            android:tint="@color/red" />
+            android:tint="@color/green" />
     </item>
 </layer-list>
