@@ -110,7 +110,7 @@ public class SteppersActivity extends AppCompatActivity implements View.OnClickL
                     imageRight.setEnabled(false);
                     imageLeft.setEnabled(true);
                     skip.setVisibility(View.INVISIBLE);
-                    startActivity(new Intent(SteppersActivity.this, MainActivity.class));
+                    startActivity(new Intent(SteppersActivity.this, SignInActivity.class));
                     finish();
                 }
 

@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-        <activity android:name=".SignInActivity"></activity>
         <activity
             android:name=".activities.SteppersActivity"
             android:configChanges="orientation|keyboardHidden"
