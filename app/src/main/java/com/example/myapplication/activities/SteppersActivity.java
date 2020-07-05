@@ -118,7 +118,7 @@ public class SteppersActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.skip:
                 //skip
-                startActivity(new Intent(SteppersActivity.this, MainActivity.class));
+                startActivity(new Intent(SteppersActivity.this, SignInActivity.class));
                 finish();
                 break;
         }

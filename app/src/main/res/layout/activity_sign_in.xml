@@ -82,19 +82,40 @@
                 android:orientation="vertical">
 
 
-                    <EditText
-                        android:id="@+id/country"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight=".9"
-                        android:hint="Country"
-                        android:inputType="text"
-                        android:textSize="8sp"
-                        android:textColor="#393939"
-                        android:drawablePadding="21dip"
-                        android:drawableLeft="@drawable/circle_green"
-                        android:drawableRight="@drawable/circle_grey"
-                         />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".9"
+                    android:orientation="horizontal">
+                    <com.hbb20.CountryCodePicker
+                        android:id="@+id/codepicker"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        app:ccp_autoDetectCountry="true"
+                        app:ccp_autoDetectLanguage="true"
+                        app:ccp_defaultLanguage="FRENCH"
+                        app:ccp_arrowColor="@color/colorAccent"
+                        app:ccpDialog_showFlag="true"
+                        app:ccp_showFullName="false"
+                        app:ccp_showPhoneCode="true"
+                        app:ccp_showNameCode="false"
+                        app:ccp_showArrow="true"
+                        app:ccpDialog_showTitle="true"
+                        app:ccp_rememberLastSelection="true"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/number_c"
+                        android:layout_weight="1.5"
+                        android:layout_width="0dp"
+                        android:enabled="false"
+                        android:text="237"
+                        android:textSize="10sp"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        />
+                </LinearLayout>
 
 
                     <EditText
@@ -137,11 +158,11 @@
                         android:id="@+id/forgot"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="7.6sp"
+                        android:textSize="11sp"
                         android:layout_gravity="end"
                         android:textColor="#ff0900"
                         android:lineSpacingExtra="1sp"
-                        tools:text="Forgot password ?"/>
+                        android:text="Forgot password ?"/>
                     <Button
                         android:id="@+id/email_sign_in_button"
                         android:layout_width="match_parent"

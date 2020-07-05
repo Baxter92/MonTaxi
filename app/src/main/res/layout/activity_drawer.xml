@@ -45,6 +45,7 @@
             android:fitsSystemWindows="false"
             android:background="@color/drawer_color"
             android:paddingTop="@dimen/spacing_large"
+            app:itemIconTint="@color/white"
             app:itemTextAppearance="@style/TextAppearance.AppCompat.Subhead"
             app:itemTextColor="@color/white"
             app:menu="@menu/menu_navigation_drawer"

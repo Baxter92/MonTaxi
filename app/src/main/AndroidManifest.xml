@@ -14,6 +14,18 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".activities.RecorvedActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.RecorvedTwoActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.SignInActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
