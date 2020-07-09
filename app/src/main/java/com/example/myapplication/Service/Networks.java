@@ -2,6 +2,7 @@ package com.example.myapplication.Service;
 
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Networks {
@@ -213,6 +215,22 @@ public class Networks {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         requestQueue.add(stringRequest);
 
+    }
+
+    public String EncodeUrl(String path,  Map<String,String> params){
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http")
+                .authority("api-dev.montaxii.com")
+                .appendPath("api")
+                .appendPath("v1")
+                .appendPath(path);
+
+        for(Map.Entry<String, String> entry : params.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            builder.appendQueryParameter(key,value);
+        }
+        return builder.build().toString();
     }
 
 }

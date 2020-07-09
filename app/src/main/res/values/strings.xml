@@ -1,11 +1,33 @@
 <resources>
-    <string name="app_name">MonTaxi</string>
+    <string name="app_name" translatable="false">montaxi</string>
     <string name="step_two_title">Work anytime, anywhere</string>
     <string name="step_two_desc">you can go online to make money whenever you want.\nMonTaxi is available 24/7</string>
     <string name="recorver_two">Please input the pin you received by sms to *******89</string>
     <string name="turnoffmsg">Please turn online to accept jobs</string>
     <string name="navigation_drawer_open">Open Drawaer</string>
     <string name="navigation_drawer_close">Close Drawaer</string>
+    <string name="hi_label">Hi,</string>
+    <string name="phone_label">Phone Number</string>
+    <string name="pwd_label">Password</string>
+    <string name="forgot_label">Forgot password ?</string>
+    <string name="signin_label">Sign In</string>
+    <string name="new_pwd_label">You have to set a new Password to continue</string>
+    <string name="new_pwd">NEW PASSWORD</string>
+    <string name="country_label">Country</string>
+    <string name="c_new_pwd">CONFIRM NEW PASSWORD</string>
+    <string name="update_label">Update</string>
+    <string name="recovery_small_label">Recover Account</string>
+    <string name="recovery_pin_label">INPUT THE PIN HERE</string>
+    <string name="recovery_resendcode_label">Resend code</string>
+    <string name="invalid_code_label">Invalid Code</string>
+    <string name="confirm_btn">Confirm</string>
+    <string name="chat_btn">Chat</string>
+    <string name="chat_label">Having trouble with your account talk to an agent.</string>
+    <string name="assist_label">Please input your phone number and a comment</string>
+    <string name="recorvery">Recover Account</string>
+    <string name="comment_label">PLEASE INPUT A COMMENT</string>
+    <string name="submit">Submit</string>
+
 
     <string name="skip">Skip</string>
     <string-array name="titles">

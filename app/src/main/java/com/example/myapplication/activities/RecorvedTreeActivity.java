@@ -5,21 +5,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 
-public class RecorvedTwoActivity extends AppCompatActivity {
+public class RecorvedTreeActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recovery2);
+        setContentView(R.layout.activity_recovery3);
         ((Button)findViewById(R.id.email_sign_in_button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RecorvedTwoActivity.this, RecorvedTreeActivity.class));
+                startActivity(new Intent(RecorvedTreeActivity.this, RecorvedFourActivity.class));
                 finish();
             }
         });

@@ -38,7 +38,7 @@
                         android:textSize="18sp"
                         android:textColor="#393939"
                         android:lineSpacingExtra="1.7sp"
-                        android:text="@string/hi_label"
+                        android:text="Hi,"
                         />
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -77,15 +77,8 @@
                         android:layout_centerVertical="true"
                         android:layout_alignParentBottom="true"
                         android:layout_marginLeft="@dimen/spacing_xxxlarge"
-                        android:src="@drawable/circle_yellow"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/spacing_xlarge"
-                        android:layout_marginTop="@dimen/spacing_middle"
-                        android:src="@drawable/envelope_2"
-                        android:layout_marginLeft="@dimen/spacing_xlarge" />
+                        android:src="@drawable/ic_assist_2"/>
+
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -95,11 +88,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
+                        android:textAlignment="center"
                         android:textColor="#393939"
-                        android:layout_gravity="center"
                         android:lineSpacingExtra="2sp"
-                        android:gravity="center_horizontal"
-                        android:text="@string/recorver_two"
+                        android:text="@string/assist_label"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -108,72 +100,67 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:padding="@dimen/spacing_large"
-                android:layout_weight="1"
-                android:weightSum="3">
+                android:layout_weight="1">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight=".9">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
+                        android:layout_marginTop="@dimen/spacing_slarge"
                         android:textColor="#393939"
                         android:layout_gravity="bottom"
                         android:lineSpacingExtra="1.7sp"
                         android:text="@string/recorvery"
                         />
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1.1"
-                    android:paddingRight="@dimen/spacing_xxxlarge"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/spacing_xlarge"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"
+                        android:textColor="#393939"
+                        android:layout_marginLeft="@dimen/spacing_middle"
+                        android:lineSpacingExtra="1sp"
+                        android:text="@string/phone_label"
+                        />
                     <EditText
                         android:id="@+id/country"
-                        android:layout_width="0dp"
-                        android:layout_weight="1.5"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Country"
-                        android:layout_gravity="center"
                         android:inputType="text"
                         android:textSize="12sp"
                         android:textColor="#393939"
                         android:drawablePadding="21dip"
-                        android:drawableLeft="@drawable/envelopes_2"
+                        android:drawableLeft="@drawable/smartphone_2"
+                        android:drawableRight="@drawable/circle_grey"
                         />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="6.3sp"
-                            android:textColor="#393939"
-                            android:lineSpacingExtra="0.7sp"
-                            android:text="@string/recovery_resendcode_label"
-                            />
+                        android:textSize="6sp"
+                        android:layout_marginLeft="@dimen/spacing_large"
+                        android:textColor="#393939"
+                        android:lineSpacingExtra="1sp"
+                        android:text="@string/comment_label"
+                        />
+                    <EditText
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="5.7sp"
-                            android:textColor="#393939"
-                            android:lineSpacingExtra="1sp"
-                            android:text="00:40"
-                            />
-                    </LinearLayout>
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spacing_xxlarge"
+                        android:inputType="textMultiLine"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:background="@drawable/commentshape"
+                        android:textSize="12sp"
+                        android:textColor="@color/white"
+                        />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:paddingRight="@dimen/spacing_xxxlarge"
                     android:layout_weight="1">
                     <Button
@@ -181,7 +168,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:background="@drawable/btn_signin"
-                        android:text="@string/confirm_btn"
+                        android:text="@string/submit"
                         android:textSize="8.3sp"
                         android:textColor="#393939" />
                 </LinearLayout>
