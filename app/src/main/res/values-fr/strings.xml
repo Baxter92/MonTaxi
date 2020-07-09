@@ -26,6 +26,8 @@
     <string name="recorvery">Récupérer le compte</string>
     <string name="comment_label">VEUILLEZ SAISIR UN COMMENTAIRE</string>
     <string name="submit">Envoyer</string>
+    <string name="sent_comment">Commentaire envoyé !</string>
+    <string name="got_it">Ok, c\'est bon !</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

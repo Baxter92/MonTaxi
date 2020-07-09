@@ -27,6 +27,8 @@
     <string name="recorvery">Recover Account</string>
     <string name="comment_label">PLEASE INPUT A COMMENT</string>
     <string name="submit">Submit</string>
+    <string name="sent_comment">Comment sent !</string>
+    <string name="got_it">Ok, got it !</string>
 
 
     <string name="skip">Skip</string>
