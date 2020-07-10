@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Interface.networksJO;
 import com.example.myapplication.Models.Config;
 import com.example.myapplication.Models.Country;
+import com.example.myapplication.Models.SignIn;
 import com.example.myapplication.R;
 import com.example.myapplication.Service.Networks;
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
@@ -31,7 +32,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener, networksJO {
@@ -45,6 +48,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     Drawable drawable;
 
     private boolean flag;
+    private boolean countryExist;
     Networks networks;
 
     @Override
@@ -65,9 +69,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         JSONObject flagObject = new JSONObject(whereParam);
         String filterJson = flagObject.toString();
 
+        List<String> countrieList = new ArrayList<>();
+        countrieList.add("countries");
         Map<String, String> filter = new HashMap<>();
         filter.put("filter",filterJson);
-        networks.getvolley(networks.EncodeUrl("countries",filter));
+        networks.getvolley(networks.EncodeUrl(countrieList,filter));
 
     }
 
@@ -129,15 +135,32 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
            // startActivity(new Intent(SignInActivity.this, RecorvedActivity.class));
             Toast.makeText(view.getContext(),getString(R.string.forgot_label),Toast.LENGTH_SHORT).show();
         }else if (view.getId()==R.id.email_sign_in_button){
-            startActivity(new Intent(SignInActivity.this, SignInAddPasswordActivity.class));
-            finish();
+            if (!numberEdt.getText().toString().isEmpty() &&
+                    !passwordEdt.getText().toString().isEmpty()) {
+                checkNumber(numberEdt.getText().toString());
+            }else {
+                Toast.makeText(view.getContext(),getString(R.string.sign_required),Toast.LENGTH_LONG).show();
+            }
         }
+    }
+
+    private void checkNumber(String phoneNumber) {
+        countryExist = true;
+        List<String> paths = new ArrayList<>();
+        paths.add("drivers");
+        paths.add("verifyphone");
+
+        Map<String,String> phoneParams = new HashMap<>();
+        phoneParams.put("phone",phoneNumber);
+
+        networks.getvolley(networks.EncodeUrl(paths,phoneParams));
     }
 
     @Override
     public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray) {
         if (flag){
             try {
+                flag = false;
                 JSONObject FlagJson = jsonArray.getJSONObject(0);
                 Country country = new Country(FlagJson.getString("flag"),FlagJson.getString("country_code"),
                         FlagJson.getString("alpha3code"));
@@ -146,7 +169,27 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }else if (countryExist){
+            try {
+                countryExist = false;
+                if (jsonObject.getBoolean("exist")){
+                    int id = jsonObject.getInt("id");
+                    SignIn(numberEdt.getText().toString(),passwordEdt.getText().toString());
+                }else {
+                    Intent intent = new Intent(SignInActivity.this,SignInAddPasswordActivity.class);
+                    intent.putExtra("number",numberEdt.getText().toString());
+                    startActivity(intent);
+                    finish();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    private void SignIn(String number, String password) {
+        SignIn signIn = new SignIn(number,password);
+        networks.postData(signIn.JsonUser(),Config.signIn);
     }
 
     private void setCountryFlag(String flagpath, String code) {

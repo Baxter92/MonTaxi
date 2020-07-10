@@ -30,6 +30,7 @@ import org.json.JSONTokener;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Networks {
@@ -217,14 +218,16 @@ public class Networks {
 
     }
 
-    public String EncodeUrl(String path,  Map<String,String> params){
+    public String EncodeUrl(List<String> paths, Map<String,String> params){
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("api-dev.montaxii.com")
                 .appendPath("api")
-                .appendPath("v1")
-                .appendPath(path);
+                .appendPath("v1");
 
+        for(String path: paths) {
+            builder.appendPath(path);
+        }
         for(Map.Entry<String, String> entry : params.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
