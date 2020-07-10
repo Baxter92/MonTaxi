@@ -6,5 +6,5 @@ public class Config {
     public static final String TAG3 = "firestore_response";
     public static final String cameroonFlag = "+237";
 
-    public static final String signIn = "http/api-dev.montaxii.com/api/v1/drivers/login";
+    public static final String signIn = "http://api-dev.montaxii.com/api/v1/drivers/login";
 }

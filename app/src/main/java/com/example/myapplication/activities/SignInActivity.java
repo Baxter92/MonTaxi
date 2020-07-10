@@ -1,5 +1,6 @@
 package com.example.myapplication.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,9 +21,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Interface.networksJO;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.Models.Config;
 import com.example.myapplication.Models.Country;
+import com.example.myapplication.Models.Driver;
 import com.example.myapplication.Models.SignIn;
+import com.example.myapplication.Models.Utils.SessionDriver;
 import com.example.myapplication.R;
 import com.example.myapplication.Service.Networks;
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
@@ -45,7 +49,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private TextView forgotTxt;
     private Button gotIt;
     private ImageView imageView;
+    SessionDriver sessionDriver;
     Drawable drawable;
+    ProgressDialog progressDialog;
 
     private boolean flag;
     private boolean countryExist;
@@ -60,7 +66,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void getCountryFlag() {
-        flag = true;
         Map<String, Map<String, String>> whereParam = new HashMap<>();
         Map<String, String> flagParam = new HashMap<>();
         flagParam.put("country_code", Config.cameroonFlag);
@@ -78,6 +83,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void init() {
+        sessionDriver = new SessionDriver(this);
+        progressDialog = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(true);
+        
         countryEdt = findViewById(R.id.country);
         numberEdt = findViewById(R.id.phone);
         passwordEdt = findViewById(R.id.password);
@@ -113,7 +123,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().length() > 7){
+                if (charSequence.toString().length() > 3){
                     passwordEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green, 0);
                 }else {
                     passwordEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey, 0);
@@ -137,7 +147,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }else if (view.getId()==R.id.email_sign_in_button){
             if (!numberEdt.getText().toString().isEmpty() &&
                     !passwordEdt.getText().toString().isEmpty()) {
-                checkNumber(numberEdt.getText().toString());
+                SignIn(numberEdt.getText().toString(), passwordEdt.getText().toString());
             }else {
                 Toast.makeText(view.getContext(),getString(R.string.sign_required),Toast.LENGTH_LONG).show();
             }
@@ -158,7 +168,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray) {
-        if (flag){
+
             try {
                 flag = false;
                 JSONObject FlagJson = jsonArray.getJSONObject(0);
@@ -169,26 +179,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }else if (countryExist){
-            try {
-                countryExist = false;
-                if (jsonObject.getBoolean("exist")){
-                    int id = jsonObject.getInt("id");
-                    SignIn(numberEdt.getText().toString(),passwordEdt.getText().toString());
-                }else {
-                    Intent intent = new Intent(SignInActivity.this,SignInAddPasswordActivity.class);
-                    intent.putExtra("number",numberEdt.getText().toString());
-                    startActivity(intent);
-                    finish();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+
     }
 
     private void SignIn(String number, String password) {
-        SignIn signIn = new SignIn(number,password);
+        showDialog("login");
+        String numberCC = Config.cameroonFlag.substring(1)+number;
+        SignIn signIn = new SignIn(numberCC,password);
+        Log.e("jsondata",signIn.JsonUser());
         networks.postData(signIn.JsonUser(),Config.signIn);
     }
 
@@ -212,11 +210,42 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray) {
+        hideDialog();
+        try {
+        if (jsonObject.has("error")){
+            JSONObject errorJson = jsonObject.getJSONObject("error");
+            Toast.makeText(context,errorJson.getString("message"),Toast.LENGTH_LONG).show();
+        }else {
+            Driver driver = new Driver(jsonObject.getString("id"), jsonObject.getLong("ttl"), jsonObject.getString("created"),
+                    jsonObject.getInt("userId"), jsonObject.getBoolean("signedup"));
 
+            if (driver.isSignedup()) {
+                //Store Driver In SharedPreference
+                sessionDriver.setDriver(driver);
+                startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                finish();
+            } else {
+                startActivity(new Intent(SignInActivity.this, SignInAddPasswordActivity.class));
+            }
+        }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void geterrorVolley(Context context, String error) {
 
     }
+
+    private void showDialog(String message){
+        progressDialog.setMessage(message);
+        progressDialog.show();
+    }
+    private void hideDialog(){
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
 }

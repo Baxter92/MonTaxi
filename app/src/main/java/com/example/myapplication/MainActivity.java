@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.myapplication.Models.Utils.SessionDriver;
+import com.example.myapplication.activities.SignInActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ActionBar actionBar;
     private Toolbar toolbar;
+    SessionDriver sessionDriver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initNavigationMenu() {
+        sessionDriver = new SessionDriver(this);
+
         NavigationView nav_view = (NavigationView) findViewById(R.id.nav_view);
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
@@ -60,8 +66,13 @@ public class MainActivity extends AppCompatActivity {
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(final MenuItem item) {
-                Toast.makeText(getApplicationContext(), item.getTitle() + " Selected", Toast.LENGTH_SHORT).show();
-                actionBar.setTitle(item.getTitle());
+               /* Toast.makeText(getApplicationContext(), item.getTitle() + " Selected", Toast.LENGTH_SHORT).show();
+                actionBar.setTitle(item.getTitle());*/
+               if (item.getItemId()==R.id.nav_logout){
+                   sessionDriver.removeDriver();
+                   startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                   finish();
+               }
                 drawer.closeDrawers();
                 return true;
             }
