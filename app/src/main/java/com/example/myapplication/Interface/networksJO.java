@@ -10,7 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public interface networksJO {
-    void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray);
-    void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray);
+    void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code);
+    void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code);
     void  geterrorVolley(Context context, String error);
 }

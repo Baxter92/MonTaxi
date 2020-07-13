@@ -1,5 +1,6 @@
 package com.example.myapplication.activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,10 +15,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Interface.networksJO;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.Models.Config;
 import com.example.myapplication.R;
 import com.example.myapplication.Service.Networks;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -28,16 +32,23 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
     private EditText passwdEdt;
     private EditText confpasswdEdt;
     private Button validBtn;
-    String number;
+    ProgressDialog progressDialog;
+    String oldpassword;
+    String token;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_pwd);
-        number = getIntent().getStringExtra("number");
+        oldpassword = getIntent().getStringExtra("password");
+        token = getIntent().getStringExtra("token");
         init();
     }
 
     private void init() {
+        progressDialog = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(true);
+
         passwdEdt = findViewById(R.id.pwd);
         confpasswdEdt = findViewById(R.id.pwd2);
         validBtn = findViewById(R.id.email_sign_in_button);
@@ -46,7 +57,7 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
             public void onClick(View view) {
                 if (!passwdEdt.getText().toString().isEmpty()&& ! confpasswdEdt.getText().toString().isEmpty()){
                     if (validPassword(passwdEdt.getText().toString(), confpasswdEdt.getText().toString())){
-                        SignUp(number,passwdEdt.getText().toString());
+                        SignUp(oldpassword,passwdEdt.getText().toString());
                     }else {
                         Toast.makeText(view.getContext(), getString(R.string.password_similar),Toast.LENGTH_LONG).show();
                     }
@@ -98,14 +109,17 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
         });
     }
 
-    private void SignUp(String number, String password) {
+    private void SignUp(String oldpassword, String password) {
+        showDialog(getString(R.string.update_password));
         Map<String, String> params = new HashMap<>();
-        params.put("number",number);
-        params.put("password",password);
+        params.put("oldPassword",oldpassword);
+        params.put("newPassword",password);
 
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization",token);
         Networks networks = new Networks(SignInAddPasswordActivity.this,this);
         JSONObject jsondata = new JSONObject(params);
-        networks.postData(jsondata.toString(),"");
+        networks.postData(jsondata.toString(), Config.changePassword,headers);
 
     }
 
@@ -114,17 +128,37 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
     }
 
     @Override
-    public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray) {
+    public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int StatusCode) {
 
     }
 
     @Override
-    public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray) {
-
+    public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int StatusCode) {
+        hideDialog();
+        if (StatusCode == 200){
+            try {
+                if (jsonObject.has("result") && jsonObject.getString("result").equals("success") ){
+                    startActivity(new Intent(SignInAddPasswordActivity.this, SignInActivity.class));
+                    finish();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void geterrorVolley(Context context, String error) {
 
+    }
+
+    private void showDialog(String message){
+        progressDialog.setMessage(message);
+        progressDialog.show();
+    }
+    private void hideDialog(){
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 }

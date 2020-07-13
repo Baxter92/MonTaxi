@@ -31,6 +31,7 @@
     <string name="got_it">Ok, got it !</string>
     <string name="sign_required">All field is Required</string>
     <string name="password_similar">Password must be same</string>
+    <string name="update_password">Update password</string>
 
 
     <string name="skip">Skip</string>

@@ -167,8 +167,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray) {
-
+    public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int statusCode) {
+        Log.e("jsondata","status code "+statusCode);
             try {
                 flag = false;
                 JSONObject FlagJson = jsonArray.getJSONObject(0);
@@ -187,7 +187,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         String numberCC = Config.cameroonFlag.substring(1)+number;
         SignIn signIn = new SignIn(numberCC,password);
         Log.e("jsondata",signIn.JsonUser());
-        networks.postData(signIn.JsonUser(),Config.signIn);
+        networks.postData(signIn.JsonUser(),Config.signIn,new HashMap<String, String>());
     }
 
     private void setCountryFlag(String flagpath, String code) {
@@ -209,25 +209,29 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray) {
+    public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int statusCode) {
         hideDialog();
+        Log.e("jsondata","status code "+statusCode);
         try {
-        if (jsonObject.has("error")){
-            JSONObject errorJson = jsonObject.getJSONObject("error");
-            Toast.makeText(context,errorJson.getString("message"),Toast.LENGTH_LONG).show();
-        }else {
-            Driver driver = new Driver(jsonObject.getString("id"), jsonObject.getLong("ttl"), jsonObject.getString("created"),
-                    jsonObject.getInt("userId"), jsonObject.getBoolean("signedup"));
+            if (jsonObject.has("error")){
+                JSONObject errorJson = jsonObject.getJSONObject("error");
+                Toast.makeText(context,errorJson.getString("message"),Toast.LENGTH_LONG).show();
+            }else {
+                Driver driver = new Driver(jsonObject.getString("id"), jsonObject.getLong("ttl"), jsonObject.getString("created"),
+                        jsonObject.getInt("userId"), jsonObject.getBoolean("signedup"));
 
-            if (driver.isSignedup()) {
-                //Store Driver In SharedPreference
-                sessionDriver.setDriver(driver);
-                startActivity(new Intent(SignInActivity.this, MainActivity.class));
-                finish();
-            } else {
-                startActivity(new Intent(SignInActivity.this, SignInAddPasswordActivity.class));
+                if (driver.isSignedup()) {
+                    //Store Driver In SharedPreference
+                    sessionDriver.setDriver(driver);
+                    startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    Intent i = new Intent(SignInActivity.this, SignInAddPasswordActivity.class);
+                    i.putExtra("token",driver.getId());
+                    i.putExtra("password",passwordEdt.getText().toString());
+                    startActivity(i);
+                }
             }
-        }
         } catch (JSONException e) {
             e.printStackTrace();
         }

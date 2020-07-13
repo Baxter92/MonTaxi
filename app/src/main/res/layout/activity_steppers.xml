@@ -11,8 +11,8 @@
 
         <ImageButton
             android:id="@+id/imageleft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/spacing_xlarge"
+            android:layout_height="@dimen/spacing_xlarge"
             android:background="@drawable/rectarrowleft"
             android:layout_marginStart="@dimen/arrow_stepper"
             android:layout_centerVertical="true"
@@ -20,8 +20,8 @@
 
         <ImageButton
             android:id="@+id/imageright"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/spacing_xlarge"
+            android:layout_height="@dimen/spacing_xlarge"
             android:background="@drawable/rectarrowright"
             android:layout_marginEnd="@dimen/arrow_stepper"
             android:layout_alignParentRight="true"

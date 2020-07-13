@@ -5,6 +5,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -39,6 +41,7 @@ public class Networks {
     private VolleyCallback volleyCallback;
     private Context context;
     private static String TAG = "volley";
+    private int statusCode;
 
 
     public Networks(Context context, networksJO mVolleynetwork){
@@ -64,10 +67,10 @@ public class Networks {
                     Object json = new JSONTokener(response).nextValue();
                     if (json instanceof JSONObject) {
                         JSONObject jObj = new JSONObject(response);
-                        mVolleynetwork.getVolleyJson(context,jObj,null);
+                        mVolleynetwork.getVolleyJson(context,jObj,null,statusCode);
                     } else if (json instanceof JSONArray){
                         JSONArray jObj = new JSONArray(response);
-                        mVolleynetwork.getVolleyJson(context,null,jObj);
+                        mVolleynetwork.getVolleyJson(context,null,jObj,statusCode);
                     }
                    /* JSONArray jObj = new JSONArray(response);
                     mVolleynetwork.getVolleyJson(context,jObj);*/
@@ -84,7 +87,13 @@ public class Networks {
 
                 Log.e("error", "Registration Error: " + error.getMessage());
             }
-        }) ;
+        }) {
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                statusCode = response.statusCode;
+                return super.parseNetworkResponse(response);
+            }
+        };
         // Adding request to request queue
         TaxiDriverApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
@@ -104,10 +113,10 @@ public class Networks {
                     Object json = new JSONTokener(response).nextValue();
                     if (json instanceof JSONObject) {
                         JSONObject jObj = new JSONObject(response);
-                        mVolleynetwork.getVolleyFromPostJson(context,jObj,null);
+                        mVolleynetwork.getVolleyFromPostJson(context,jObj,null, statusCode);
                     } else if (json instanceof JSONArray){
                         JSONArray jObj = new JSONArray(response);
-                        mVolleynetwork.getVolleyFromPostJson(context,null,jObj);
+                        mVolleynetwork.getVolleyFromPostJson(context,null,jObj, statusCode);
                     }
 
 
@@ -141,6 +150,11 @@ public class Networks {
                 // Posting params to register url
                 return params;
             }
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                statusCode = response.statusCode;
+                return super.parseNetworkResponse(response);
+            }
 
         };
         strReq.setRetryPolicy(new DefaultRetryPolicy(
@@ -151,7 +165,7 @@ public class Networks {
         TaxiDriverApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-    public void postData(final String mRequestBody, String url){
+    public void postData(final String mRequestBody, String url, @Nullable final Map<String, String> headers){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -166,10 +180,10 @@ public class Networks {
                     Object json = new JSONTokener(response).nextValue();
                     if (json instanceof JSONObject) {
                         JSONObject jObj = new JSONObject(response);
-                        mVolleynetwork.getVolleyFromPostJson(context,jObj,null);
+                        mVolleynetwork.getVolleyFromPostJson(context,jObj,null,statusCode);
                     } else if (json instanceof JSONArray){
                         JSONArray jObj = new JSONArray(response);
-                        mVolleynetwork.getVolleyFromPostJson(context,null,jObj);
+                        mVolleynetwork.getVolleyFromPostJson(context,null,jObj, statusCode);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -199,7 +213,13 @@ public class Networks {
             }
 
             @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                    return headers;
+            }
+
+            @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                statusCode = response.statusCode;
                 String parsed;
                 try {
                     parsed = new String(response.data, HttpHeaderParser.parseCharset(response.headers));

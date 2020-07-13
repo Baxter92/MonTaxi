@@ -5,6 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -34,6 +35,7 @@ public class SteppersActivity extends AppCompatActivity implements View.OnClickL
 
         init();
 
+        imageLeft.setEnabled(false);
         imageLeft.setOnClickListener(this);
         imageRight.setOnClickListener(this);
         skip.setOnClickListener(this);
@@ -88,7 +90,7 @@ public class SteppersActivity extends AppCompatActivity implements View.OnClickL
         switch (view.getId()){
             case R.id.imageleft:
                 //left click
-                int current_left = viewPager.getCurrentItem() - 1;
+                /*int current_left = viewPager.getCurrentItem() - 1;
                 if (current_left>=0){
                     //move to previous step
                     viewPager.setCurrentItem(current_left);
@@ -97,11 +99,21 @@ public class SteppersActivity extends AppCompatActivity implements View.OnClickL
                     imageLeft.setEnabled(false);
                     imageRight.setEnabled(true);
                 }
+                skip.setVisibility(View.VISIBLE);*/
+                int current_left = viewPager.getCurrentItem()-1;
+                viewPager.setCurrentItem(current_left);
+                Log.e("jsondata", "current item left "+current_left);
+                if (current_left == 0){
+                    imageLeft.setEnabled(false);
+                }else {
+                    imageLeft.setEnabled(true);
+                }
                 skip.setVisibility(View.VISIBLE);
                 break;
             case R.id.imageright:
                 //right click
-                int current_right = viewPager.getCurrentItem() + 1;
+                int current_right = viewPager.getCurrentItem()+1;
+               /* int current_right = viewPager.getCurrentItem() + 1;
                 if (current_right<MAX_STEP){
                     //move to next step
                     viewPager.setCurrentItem(current_right);
@@ -112,8 +124,20 @@ public class SteppersActivity extends AppCompatActivity implements View.OnClickL
                     skip.setVisibility(View.INVISIBLE);
                     startActivity(new Intent(SteppersActivity.this, SignInActivity.class));
                     finish();
-                }
+                }*/
+                viewPager.setCurrentItem(current_right);
+                Log.e("jsondata", "current item right "+current_right);
 
+                if (current_right == MAX_STEP) {
+                    imageRight.setEnabled(false);
+                    startActivity(new Intent(SteppersActivity.this, SignInActivity.class));
+                    finish();
+                }else if (current_right == MAX_STEP -1){
+                    skip.setVisibility(View.GONE);
+                }
+                else {
+                    imageRight.setEnabled(true);
+                }
 
                 break;
             case R.id.skip:
