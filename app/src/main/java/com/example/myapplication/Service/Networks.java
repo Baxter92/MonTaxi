@@ -165,7 +165,7 @@ public class Networks {
         TaxiDriverApplication.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-    public void postData(final String mRequestBody, String url, @Nullable final Map<String, String> headers){
+    public void postData(final String mRequestBody, String url, final Map<String, String> postheaders){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -194,14 +194,24 @@ public class Networks {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("error", "Registration Error: " + error.getMessage());
-                mVolleynetwork.geterrorVolley(context,error.getMessage());
+                NetworkResponse networkResponse = error.networkResponse;
+                if (networkResponse != null && networkResponse.statusCode == 401) {
+                    // HTTP Status Code: 401 Unauthorized
+                    mVolleynetwork.geterrorVolley(context,"401");
+                }
+                    mVolleynetwork.geterrorVolley(context, error.getMessage());
             }
-        }) {
+        })
+        {
             @Override
             public String getBodyContentType() {
                 return "application/json; charset=utf-8";
             }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
 
+                return postheaders;
+            }
             @Override
             public byte[] getBody() throws AuthFailureError {
                 try {
@@ -210,11 +220,6 @@ public class Networks {
                     VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", mRequestBody, "utf-8");
                     return null;
                 }
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                    return headers;
             }
 
             @Override

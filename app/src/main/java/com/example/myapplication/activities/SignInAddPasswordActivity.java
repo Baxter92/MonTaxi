@@ -3,9 +3,11 @@ package com.example.myapplication.activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +37,7 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
     ProgressDialog progressDialog;
     String oldpassword;
     String token;
+    int screensize;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,8 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(true);
 
+        screensize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+
         passwdEdt = findViewById(R.id.pwd);
         confpasswdEdt = findViewById(R.id.pwd2);
         validBtn = findViewById(R.id.email_sign_in_button);
@@ -58,12 +63,14 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
                 if (!passwdEdt.getText().toString().isEmpty()&& ! confpasswdEdt.getText().toString().isEmpty()){
                     if (validPassword(passwdEdt.getText().toString(), confpasswdEdt.getText().toString())){
                         SignUp(oldpassword,passwdEdt.getText().toString());
-                    }else {
-                        Toast.makeText(view.getContext(), getString(R.string.password_similar),Toast.LENGTH_LONG).show();
-                    }
-                }else {
-                    Toast.makeText(view.getContext(), getString(R.string.sign_required),Toast.LENGTH_LONG).show();
-                }
+                    }/*else {
+                        //Toast.makeText(view.getContext(), getString(R.string.password_similar),Toast.LENGTH_LONG).show();
+                        Config.Alert(SignInAddPasswordActivity.this,getString(R.string.password_similar),false);
+                    }*/
+                }/*else {
+                    //Toast.makeText(view.getContext(), getString(R.string.sign_required),Toast.LENGTH_LONG).show();
+                    Config.Alert(SignInAddPasswordActivity.this,getString(R.string.sign_required),false);
+                }*/
             }
         });
         passwdEdt.addTextChangedListener(new TextWatcher() {
@@ -74,10 +81,23 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().length() > 8){
-                    passwdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green, 0);
+
+                if (charSequence.toString().length() > 4){
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        passwdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green_2, 0);
+                    else
+                        passwdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green, 0);
+                }else if ((charSequence.toString().length() > 0)&& (charSequence.toString().length() < 5))
+                {
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        passwdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_red_2, 0);
+                    else
+                        passwdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_red, 0);
                 }else {
-                    passwdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey, 0);
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        passwdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey_2, 0);
+                    else
+                        passwdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey, 0);
                 }
             }
 
@@ -95,10 +115,23 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().length() > 8){
-                    confpasswdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green, 0);
+
+                if (charSequence.toString().length() > 4){
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        confpasswdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green_2, 0);
+                    else
+                        confpasswdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green, 0);
+                }else if ((charSequence.toString().length() > 0)&& (charSequence.toString().length() < 5))
+                {
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        confpasswdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_red_2, 0);
+                    else
+                        confpasswdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_red, 0);
                 }else {
-                    confpasswdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey, 0);
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        confpasswdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey_2, 0);
+                    else
+                        confpasswdEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey, 0);
                 }
             }
 
@@ -117,14 +150,16 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
 
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization",token);
+
+        Log.e("jsondata","oldpassword "+oldpassword+" newpassword "+password+" token "+token);
+
         Networks networks = new Networks(SignInAddPasswordActivity.this,this);
         JSONObject jsondata = new JSONObject(params);
         networks.postData(jsondata.toString(), Config.changePassword,headers);
-
     }
 
     private boolean validPassword(String password, String password2){
-        return  password == password2;
+        return password.equals(password2);
     }
 
     @Override
@@ -135,7 +170,8 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
     @Override
     public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int StatusCode) {
         hideDialog();
-        if (StatusCode == 200){
+        Log.e("jsondata","status code "+StatusCode);
+      //  if (StatusCode == 200){
             try {
                 if (jsonObject.has("result") && jsonObject.getString("result").equals("success") ){
                     startActivity(new Intent(SignInAddPasswordActivity.this, SignInActivity.class));
@@ -144,12 +180,15 @@ public class SignInAddPasswordActivity extends AppCompatActivity implements netw
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }
+        //}
     }
 
     @Override
     public void geterrorVolley(Context context, String error) {
-
+            hideDialog();
+        if (error == null){
+            Config.Alert(SignInAddPasswordActivity.this,getString(R.string.un_authorize),false);
+        }
     }
 
     private void showDialog(String message){

@@ -3,6 +3,7 @@ package com.example.myapplication.activities;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -56,6 +57,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private boolean flag;
     private boolean countryExist;
     Networks networks;
+    int screensize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         progressDialog = new ProgressDialog(this, R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(true);
+
+        screensize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         
         countryEdt = findViewById(R.id.country);
         numberEdt = findViewById(R.id.phone);
@@ -102,10 +106,22 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().length() > 8){
-                    numberEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green, 0);
+                if (charSequence.toString().length() == 9){
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        numberEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green_2, 0);
+                    else
+                        numberEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green, 0);
+
+                }else if (charSequence.toString().length() != 9 && charSequence.toString().length() != 0) {
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        numberEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_red_2, 0);
+                    else
+                        numberEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_red, 0);
                 }else {
-                    numberEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey, 0);
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        numberEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey_2, 0);
+                    else
+                        numberEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey, 0);
                 }
             }
 
@@ -123,10 +139,22 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.toString().length() > 3){
-                    passwordEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green, 0);
+                if (charSequence.toString().length() > 4){
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        passwordEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green_2, 0);
+                    else
+                        passwordEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green, 0);
+                }else if ((charSequence.toString().length() > 0)&& (charSequence.toString().length() < 5))
+                {
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                         passwordEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_red_2, 0);
+                    else
+                        passwordEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_red, 0);
                 }else {
-                    passwordEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey, 0);
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        passwordEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey_2, 0);
+                    else
+                        passwordEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey, 0);
                 }
             }
 
@@ -143,14 +171,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         if (view.getId()==R.id.forgot){
            // startActivity(new Intent(SignInActivity.this, RecorvedActivity.class));
-            Toast.makeText(view.getContext(),getString(R.string.forgot_label),Toast.LENGTH_SHORT).show();
+           // Toast.makeText(view.getContext(),getString(R.string.forgot_label),Toast.LENGTH_SHORT).show();
         }else if (view.getId()==R.id.email_sign_in_button){
             if (!numberEdt.getText().toString().isEmpty() &&
                     !passwordEdt.getText().toString().isEmpty()) {
                 SignIn(numberEdt.getText().toString(), passwordEdt.getText().toString());
-            }else {
-                Toast.makeText(view.getContext(),getString(R.string.sign_required),Toast.LENGTH_LONG).show();
-            }
+            }/*else {
+               // Toast.makeText(view.getContext(),getString(R.string.sign_required),Toast.LENGTH_LONG).show();
+                Config.Alert(SignInActivity.this,getString(R.string.sign_required),false);
+            }*/
         }
     }
 
@@ -188,6 +217,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         SignIn signIn = new SignIn(numberCC,password);
         Log.e("jsondata",signIn.JsonUser());
         networks.postData(signIn.JsonUser(),Config.signIn,new HashMap<String, String>());
+       // Config.Alert(SignInActivity.this,"success text screen",true);
     }
 
     private void setCountryFlag(String flagpath, String code) {
@@ -215,7 +245,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         try {
             if (jsonObject.has("error")){
                 JSONObject errorJson = jsonObject.getJSONObject("error");
-                Toast.makeText(context,errorJson.getString("message"),Toast.LENGTH_LONG).show();
+                //Toast.makeText(context,errorJson.getString("message"),Toast.LENGTH_LONG).show();
+                Config.Alert(SignInActivity.this,errorJson.getString("message"),false);
             }else {
                 Driver driver = new Driver(jsonObject.getString("id"), jsonObject.getLong("ttl"), jsonObject.getString("created"),
                         jsonObject.getInt("userId"), jsonObject.getBoolean("signedup"));
@@ -239,7 +270,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void geterrorVolley(Context context, String error) {
+        hideDialog();
 
+            if (error == null){
+                Config.Alert(SignInActivity.this,getString(R.string.un_authorize),false);
+            }
     }
 
     private void showDialog(String message){

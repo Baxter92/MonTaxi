@@ -31,6 +31,7 @@
     <string name="sign_required">Tous les champs sont obligatoires</string>
     <string name="password_similar">Les mots de passes doivent être identique</string>
     <string name="update_password">Mis à jour Mot de passe</string>
+    <string name="un_authorize">numéro ou mot de passe incorrect</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">
