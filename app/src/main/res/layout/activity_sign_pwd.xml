@@ -56,22 +56,12 @@
                 android:layout_height="23dp"
                 android:src="@drawable/mon_taxi"
                 />
-                <LinearLayout
+                <ImageView
                     android:layout_width="30dp"
                     android:layout_height="12dp"
                     android:layout_marginLeft="5dp"
-                    android:background="@color/black">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="6sp"
-                        android:textColor="#fff301"
-                        android:text="DRIVER"
-                        android:letterSpacing="0.11"
-                        android:lineSpacingExtra="1sp"
-                        android:gravity="center_horizontal"
-                        />
-                </LinearLayout>
+                    android:src="@drawable/groupe_1700"
+                    />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

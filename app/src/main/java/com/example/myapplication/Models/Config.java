@@ -1,6 +1,7 @@
 package com.example.myapplication.Models;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -15,9 +16,11 @@ public class Config {
     public static final String TAG3 = "firestore_response";
     public static final String cameroonFlag = "+237";
     private static AlertDialog show;
+    private static ProgressDialog progressDialog;
 
     public static final String signIn = "http://api-dev.montaxii.com/api/v1/drivers/login";
     public static final String changePassword = "http://api-dev.montaxii.com/api/v1/drivers/change-password";
+    public static final String recoveraccount = "http://api-dev.montaxii.com/api/v1/drivers/recover-account";
 
     public static void Alert(Context context, String message, boolean success){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -45,5 +48,21 @@ public class Config {
 
     public static void dismiss(){
         show.dismiss();
+    }
+
+    public static void ProgressDialog(Context context){
+        progressDialog = new ProgressDialog(context, R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(true);
+    }
+
+    public static void showDialog(String message){
+        progressDialog.setMessage(message);
+        progressDialog.show();
+    }
+    public static void hideDialog(){
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
     }
 }

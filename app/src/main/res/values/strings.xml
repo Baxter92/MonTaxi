@@ -32,7 +32,8 @@
     <string name="sign_required">All field is Required</string>
     <string name="password_similar">Password must be same</string>
     <string name="update_password">Update password</string>
-    <string name="un_authorize">incorrect number or password</string>
+    <string name="un_authorize">incorrect credentials</string>
+    <string name="verify">Verify</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

@@ -49,22 +49,12 @@
                             android:layout_height="50dp"
                             android:src="@drawable/mon_taxi"
                             />
-                        <LinearLayout
-                            android:layout_width="70dp"
+                        <ImageView
+                            android:layout_width="60dp"
                             android:layout_height="25dp"
                             android:layout_marginLeft="5dp"
-                            android:background="@color/black">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="14sp"
-                                android:textColor="#fff301"
-                                android:text="DRIVER"
-                                android:letterSpacing="0.11"
-                                android:lineSpacingExtra="1sp"
-                                android:gravity="center_horizontal"
-                                />
-                        </LinearLayout>
+                            android:src="@drawable/groupe_1700"
+                            />
                     </LinearLayout>
                 </LinearLayout>
                 <RelativeLayout
@@ -75,7 +65,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="@dimen/spacing_xlarge"
                         android:layout_marginLeft="@dimen/spacing_xlarge"
                         android:src="@drawable/circle_yellow"/>
                     <ImageView
@@ -83,17 +73,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/spacing_xlarge"
                         android:layout_marginTop="@dimen/spacing_middle"
-                        android:src="@drawable/smartphones_2"
+                        android:src="@drawable/smartphones_3"
                         android:layout_marginLeft="@dimen/spacing_xlarge" />
                 </RelativeLayout>
+
                 <LinearLayout
-                    android:layout_width="@dimen/spacing_title1"
+                    android:layout_width="@dimen/card_in_signin"
                     android:layout_height="0dp"
                     android:layout_weight="1">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="17sp"
                         android:textColor="#393939"
                         android:layout_gravity="center"
                         android:lineSpacingExtra="2sp"
@@ -117,9 +108,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         android:textColor="#393939"
-                        android:layout_gravity="bottom"
+                        android:layout_gravity="center"
                         android:lineSpacingExtra="1.7sp"
                         android:text="Recover Account"
                         />
@@ -127,43 +118,32 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1.3"
+                    android:layout_weight="1"
                     android:paddingRight="@dimen/spacing_xxxlarge"
                     android:orientation="vertical"
-                    android:weightSum="2">
+                    android:weightSum="1">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight=".9"
+                        android:layout_weight=".5"
                         android:orientation="horizontal">
-                        <com.hbb20.CountryCodePicker
-                            android:id="@+id/codepicker"
+                        <ImageView
+                            android:id="@+id/iv"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            app:ccp_autoDetectCountry="true"
-                            app:ccp_autoDetectLanguage="true"
-                            app:ccp_defaultLanguage="FRENCH"
-                            app:ccp_arrowColor="@color/colorAccent"
-                            app:ccpDialog_showFlag="true"
-                            app:ccp_showFullName="false"
-                            app:ccp_showPhoneCode="true"
-                            app:ccp_showNameCode="false"
-                            app:ccp_showArrow="true"
-                            app:ccpDialog_showTitle="true"
-                            app:ccp_rememberLastSelection="true"
-                            />
+                            android:layout_height="24dp"
+                            android:layout_weight="0.3" />
 
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/number_c"
-                            android:layout_weight="1.5"
+                        <EditText
+                            android:id="@+id/country"
                             android:layout_width="0dp"
-                            android:enabled="false"
-                            android:text="237"
-                            android:textSize="10sp"
                             android:layout_height="wrap_content"
-                            android:inputType="phone"
-                            />
+                            android:layout_weight="1.7"
+                            android:hint="@string/country_label"
+                            android:inputType="text"
+                            android:textSize="13sp"
+                            android:textColor="#393939"
+                            android:maxLines="1"
+                            android:singleLine="true" />
                     </LinearLayout>
 
 
@@ -171,15 +151,15 @@
                         android:id="@+id/phone"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight=".9"
+                        android:layout_weight=".5"
                         android:hint="Phone Number"
                         android:inputType="text"
-                        android:textSize="8sp"
+                        android:textSize="13sp"
                         android:textColor="#393939"
                         android:maxLines="1"
                         android:drawablePadding="21dip"
-                        android:drawableLeft="@drawable/smartphone_2"
-                        android:drawableRight="@drawable/circle_grey"
+                        android:drawableLeft="@drawable/smartphone_3"
+                        android:drawableRight="@drawable/circle_grey_2"
                         android:singleLine="true" />
                 </LinearLayout>
                 <LinearLayout
@@ -191,10 +171,9 @@
                         android:id="@+id/email_sign_in_button"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:layout_gravity="bottom"
                         android:background="@drawable/btn_signin"
-                        android:text="Sign In"
-                        android:textSize="8.3sp"
+                        android:text="@string/verify"
+                        android:textSize="13sp"
                         android:textColor="#393939" />
                 </LinearLayout>
             </LinearLayout>

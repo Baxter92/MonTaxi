@@ -6,13 +6,15 @@ public class Driver {
     private String created_at;
     private int userId;
     private boolean signedup;
+    private Country country;
 
-    public Driver(String id, long ttl, String created_at, int userId, boolean signedup) {
+    public Driver(String id, long ttl, String created_at, int userId, boolean signedup, Country country) {
         this.id = id;
         this.ttl = ttl;
         this.created_at = created_at;
         this.userId = userId;
         this.signedup = signedup;
+        this.country = country;
     }
 
     public String getId() {
@@ -33,5 +35,9 @@ public class Driver {
 
     public boolean isSignedup() {
         return signedup;
+    }
+
+    public Country getCountry() {
+        return country;
     }
 }

@@ -55,22 +55,12 @@
                             android:layout_height="50dp"
                             android:src="@drawable/mon_taxi"
                             />
-                        <LinearLayout
-                            android:layout_width="70dp"
+                        <ImageView
+                            android:layout_width="60dp"
                             android:layout_height="25dp"
                             android:layout_marginLeft="5dp"
-                            android:background="@color/black">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="14sp"
-                                android:textColor="#fff301"
-                                android:text="DRIVER"
-                                android:letterSpacing="0.11"
-                                android:lineSpacingExtra="1sp"
-                                android:gravity="center_horizontal"
-                                />
-                        </LinearLayout>
+                            android:src="@drawable/groupe_1700"
+                            />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -83,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
                         android:textColor="#393939"
-                        android:layout_gravity="center"
+                        android:layout_gravity="top"
                         android:lineSpacingExtra="2sp"
                         android:gravity="center_horizontal"
                         android:text="@string/recorver_two"
@@ -130,12 +120,13 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight=".5"
-                        android:src="@drawable/envelopes_2"/>
+                        android:src="@drawable/envelopes_3"/>
+
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.7"
+                        android:layout_height="29dp"
                         android:layout_gravity="bottom"
+                        android:layout_weight="1.7"
                         android:orientation="horizontal">
 
 
@@ -248,6 +239,7 @@
                         android:id="@+id/email_sign_in_button"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_xlarge"
+                        android:layout_gravity="center"
                         android:background="@drawable/btn_signin"
                         android:text="@string/confirm_btn"
                         android:textSize="8.3sp"

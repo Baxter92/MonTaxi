@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,10 +51,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private EditText passwordEdt;
     private TextView forgotTxt;
     private Button gotIt;
+    RelativeLayout ll_error;
+    private TextView errortvt;
     private ImageView imageView;
     SessionDriver sessionDriver;
     Drawable drawable;
     ProgressDialog progressDialog;
+    Country country;
 
     private boolean flag;
     private boolean countryExist;
@@ -96,6 +101,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         numberEdt = findViewById(R.id.phone);
         passwordEdt = findViewById(R.id.password);
         imageView = findViewById(R.id.iv);
+        ll_error = findViewById(R.id.flashmessage);
+        errortvt = findViewById(R.id.flashmessage_txt);
         gotIt = findViewById(R.id.email_sign_in_button); gotIt.setOnClickListener(this);
         forgotTxt = findViewById(R.id.forgot); forgotTxt.setOnClickListener(this);
         numberEdt.addTextChangedListener(new TextWatcher() {
@@ -170,7 +177,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         if (view.getId()==R.id.forgot){
-           // startActivity(new Intent(SignInActivity.this, RecorvedActivity.class));
+            Intent intent = new Intent(SignInActivity.this, RecorvedActivity.class);
+            startActivity(intent);
            // Toast.makeText(view.getContext(),getString(R.string.forgot_label),Toast.LENGTH_SHORT).show();
         }else if (view.getId()==R.id.email_sign_in_button){
             if (!numberEdt.getText().toString().isEmpty() &&
@@ -201,8 +209,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             try {
                 flag = false;
                 JSONObject FlagJson = jsonArray.getJSONObject(0);
-                Country country = new Country(FlagJson.getString("flag"),FlagJson.getString("country_code"),
-                        FlagJson.getString("alpha3code"));
+                country = new Country(FlagJson.getString("flag"),FlagJson.getString("country_code"),
+                        FlagJson.getString("alpha3code"), FlagJson.getJSONObject("name").getString("en"),
+                        FlagJson.getJSONObject("name").getString("fr"));
                 setCountryFlag(country.getFlag(),country.getCountry_code());
 
             } catch (JSONException e) {
@@ -249,7 +258,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 Config.Alert(SignInActivity.this,errorJson.getString("message"),false);
             }else {
                 Driver driver = new Driver(jsonObject.getString("id"), jsonObject.getLong("ttl"), jsonObject.getString("created"),
-                        jsonObject.getInt("userId"), jsonObject.getBoolean("signedup"));
+                        jsonObject.getInt("userId"), jsonObject.getBoolean("signedup"),country);
 
                 if (driver.isSignedup()) {
                     //Store Driver In SharedPreference
@@ -273,7 +282,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         hideDialog();
 
             if (error == null){
-                Config.Alert(SignInActivity.this,getString(R.string.un_authorize),false);
+               // Config.Alert(SignInActivity.this,getString(R.string.un_authorize),false);
+                showErrorMessage(getString(R.string.un_authorize));
             }
     }
 
@@ -285,6 +295,22 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
+    }
+
+    private void showErrorMessage(String texterror){
+        forgotTxt.setVisibility(View.GONE);
+        ll_error.setVisibility(View.VISIBLE);
+        errortvt.setText(texterror);
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run()
+            {
+                ll_error.setVisibility(View.GONE);
+                forgotTxt.setVisibility(View.VISIBLE);
+            }
+        }, 3000);
     }
 
 }

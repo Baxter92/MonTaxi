@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
@@ -21,7 +22,7 @@ public class SteppersActivity extends AppCompatActivity implements View.OnClickL
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     private ImageButton imageLeft, imageRight;
-    private Button skip;
+    private ImageView skip;
 
     private int images_array[] = {
             R.drawable.stepperone,
@@ -50,7 +51,7 @@ public class SteppersActivity extends AppCompatActivity implements View.OnClickL
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         imageLeft = (ImageButton)findViewById(R.id.imageleft);
         imageRight = (ImageButton)findViewById(R.id.imageright);
-        skip = (Button)findViewById(R.id.skip);
+        skip = (ImageView) findViewById(R.id.skip);
 
         ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
