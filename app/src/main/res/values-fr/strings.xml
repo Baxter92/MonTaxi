@@ -1,7 +1,7 @@
 <resources>
     <string name="step_two_title">Travaillez n\'importe quand, n\'importe où</string>
     <string name="step_two_desc">vous pouvez aller en ligne pour gagner de l\'argent quand vous le souhaitez. \nMonTaxi est disponible 24/7</string>
-    <string name="recorver_two">Veuillez saisir le code pin que vous avez reçu par sms à *******89</string>
+    <string name="recorver_two">Veuillez saisir le code pin que vous avez reçu par sms à *******%1$s</string>
     <string name="turnoffmsg">Please turn online to accept jobs</string>
     <string name="navigation_drawer_open">Open Drawaer</string>
     <string name="navigation_drawer_close">Close Drawaer</string>
@@ -33,6 +33,9 @@
     <string name="update_password">Mis à jour Mot de passe</string>
     <string name="un_authorize">identifiants incorrects</string>
     <string name="verify">Verifier</string>
+    <string name="new_pwd_1">Nouveau mot de passe</string>
+    <string name="new_pwd_2">Confirmer mot de passe</string>
+    <string name="code_sent">Code envoyé</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

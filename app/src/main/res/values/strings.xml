@@ -2,7 +2,7 @@
     <string name="app_name" translatable="false">montaxi</string>
     <string name="step_two_title">Work anytime, anywhere</string>
     <string name="step_two_desc">you can go online to make money whenever you want.\nMonTaxi is available 24/7</string>
-    <string name="recorver_two">Please input the pin you received by sms to *******89</string>
+    <string name="recorver_two">Please input the pin you received by sms to *******%1$s</string>
     <string name="turnoffmsg">Please turn online to accept jobs</string>
     <string name="navigation_drawer_open">Open Drawaer</string>
     <string name="navigation_drawer_close">Close Drawaer</string>
@@ -34,6 +34,9 @@
     <string name="update_password">Update password</string>
     <string name="un_authorize">incorrect credentials</string>
     <string name="verify">Verify</string>
+    <string name="new_pwd_1">New password</string>
+    <string name="new_pwd_2">Confirm new password</string>
+    <string name="code_sent">Code sent</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

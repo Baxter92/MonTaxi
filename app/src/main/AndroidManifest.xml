@@ -30,7 +30,11 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activities.RecorvedFourActivity"
+            android:name=".activities.RecorvedChatActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.RecorvedNewPassword"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity

@@ -12,13 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 
-public class RecorvedFourActivity extends AppCompatActivity {
+public class RecorvedChatActivity extends AppCompatActivity {
 
+    private String phone;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recovery4);
+        setContentView(R.layout.activity_recoverychat);
 
+        phone = getIntent().getStringExtra("phone");
         ((Button)findViewById(R.id.email_sign_in_button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,12 +36,20 @@ public class RecorvedFourActivity extends AppCompatActivity {
         exitText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RecorvedFourActivity.this, SignInActivity.class));
+                startActivity(new Intent(RecorvedChatActivity.this, SignInActivity.class));
                 finish();
             }
         });
 
         builder.setView(contentView)
                 .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(RecorvedChatActivity.this, RecorvedTreeActivity.class);
+        i.putExtra("phone",phone);
+        startActivity(i);
     }
 }

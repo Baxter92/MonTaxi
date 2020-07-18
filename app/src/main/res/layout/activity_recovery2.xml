@@ -58,7 +58,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <RelativeLayout
+                <!--RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
@@ -76,13 +76,22 @@
                         android:layout_marginTop="@dimen/spacing_middle"
                         android:src="@drawable/envelope_2"
                         android:layout_marginLeft="@dimen/spacing_xlarge" />
-                </RelativeLayout>
+                </RelativeLayout-->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/spacing_xlarge"
+                    android:layout_marginTop="@dimen/spacing_middle"
+                    android:src="@drawable/groupe_138" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/receivesms"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
@@ -132,6 +141,7 @@
 
 
                         <EditText
+                            android:id="@+id/edt1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -149,6 +159,7 @@
                             android:layout_height="0dp" />
 
                         <EditText
+                            android:id="@+id/edt2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -166,6 +177,7 @@
                             android:layout_height="0dp" />
 
                         <EditText
+                            android:id="@+id/edt3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -183,6 +195,7 @@
                             android:layout_height="0dp" />
 
                         <EditText
+                            android:id="@+id/edt4"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

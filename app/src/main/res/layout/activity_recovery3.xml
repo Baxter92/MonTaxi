@@ -69,6 +69,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/receivesms"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
@@ -92,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_large"
-                        android:textSize="14sp"
+                        android:textSize="17sp"
                         android:textColor="#393939"
                         android:layout_gravity="bottom"
                         android:lineSpacingExtra="1.7sp"
@@ -102,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_middle"
-                    android:textSize="7sp"
+                    android:textSize="10sp"
                     android:layout_marginLeft="@dimen/spacing_middle"
                     android:textColor="#393939"
                     android:lineSpacingExtra="1sp"
@@ -110,7 +111,7 @@
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/spacing_xxlarge"
                     android:paddingRight="@dimen/spacing_xxxlarge"
                     android:weightSum="3"
                     android:orientation="horizontal">
@@ -131,6 +132,7 @@
 
 
                         <EditText
+                            android:id="@+id/edt1"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -148,6 +150,7 @@
                             android:layout_height="0dp" />
 
                         <EditText
+                            android:id="@+id/edt2"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -165,6 +168,7 @@
                             android:layout_height="0dp" />
 
                         <EditText
+                            android:id="@+id/edt3"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -182,6 +186,7 @@
                             android:layout_height="0dp" />
 
                         <EditText
+                            android:id="@+id/edt4"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -202,9 +207,10 @@
                         android:layout_weight=".7"
                         android:orientation="vertical">
                         <TextView
+                            android:id="@+id/countdown"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="6.3sp"
+                            android:textSize="11sp"
                             android:textColor="#393939"
                             android:lineSpacingExtra="0.7sp"
                             android:text="@string/recovery_resendcode_label"
@@ -221,6 +227,7 @@
                     </LinearLayout>
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/msg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="7.3sp"
@@ -236,7 +243,7 @@
                     android:paddingRight="@dimen/spacing_xxxlarge"
                     android:layout_weight="1">
                     <Button
-                        android:id="@+id/email_sign_in_button"
+                        android:id="@+id/confirm"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/spacing_xlarge"
                         android:layout_gravity="center"

@@ -63,8 +63,8 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
         ((Button)findViewById(R.id.email_sign_in_button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //verifyPhone();
-                startActivity(new Intent(RecorvedActivity.this, RecorvedTwoActivity.class));
+                verifyPhone();
+               // startActivity(new Intent(RecorvedActivity.this, RecorvedTwoActivity.class));
             }
         });
     }
@@ -124,11 +124,13 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
             }
         }else {
             try {
-                boolean exist = jsonObject.getBoolean("exist");
-                if (exist){
+                String result = jsonObject.getString("result");
+                if (result.equals("success")){
                     Intent intent = new Intent(RecorvedActivity.this, RecorvedTwoActivity.class);
                     intent.putExtra("phone",numberEdt.getText().toString());
                     startActivity(intent);
+                }else {
+
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -143,7 +145,7 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
 
     @Override
     public void geterrorVolley(Context context, String error) {
-
+        Config.hideDialog();
     }
 
     private void setCountryFlag(String flagpath, String code) {
@@ -185,10 +187,11 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
     private void verifyPhone() {
         Config.showDialog(getString(R.string.verify));
         List<String> paths = new ArrayList<>();
-        paths.add("drivers");
-        paths.add("verifyphone");
+        paths.add("phone_validation");
+        paths.add("requestcode");
         Map<String, String> phoneParam = new HashMap<>();
         phoneParam.put("phone",numberEdt.getText().toString());
+        phoneParam.put("type","phone");
         networks.getvolley(networks.EncodeUrl(paths,phoneParam));
 
     }
