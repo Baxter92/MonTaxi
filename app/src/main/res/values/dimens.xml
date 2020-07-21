@@ -25,6 +25,8 @@
     <dimen name="card_xsignin">350dp</dimen>
     <dimen name="card_in_signin">210dp</dimen>
     <dimen name="card_in_xsignin">310dp</dimen>
-    <dimen name="card_comment">100dp</dimen>
+    <dimen name="card_comment">120dp</dimen>
+    <dimen name="card_comment2">180dp</dimen>
     <dimen name="card_in_comment">85dp</dimen>
+    <dimen name="card_in_comment_2">135dp</dimen>
 </resources>

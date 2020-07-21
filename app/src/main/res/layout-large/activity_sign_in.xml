@@ -164,6 +164,14 @@
                         android:lineSpacingExtra="1sp"
                         android:text="@string/forgot_label"/>
                     </RelativeLayout>
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:visibility="gone"
+                        style="@style/Widget.AppCompat.ProgressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:progressDrawable="@drawable/circular_progress_bar"/>
                     <Button
                         android:id="@+id/email_sign_in_button"
                         android:layout_width="match_parent"

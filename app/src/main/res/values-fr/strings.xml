@@ -1,33 +1,34 @@
 <resources>
     <string name="step_two_title">Travaillez n\'importe quand, n\'importe où</string>
     <string name="step_two_desc">vous pouvez aller en ligne pour gagner de l\'argent quand vous le souhaitez. \nMonTaxi est disponible 24/7</string>
-    <string name="recorver_two">Veuillez saisir le code pin que vous avez reçu par sms à *******%1$s</string>
-    <string name="turnoffmsg">Please turn online to accept jobs</string>
+    <string name="recorver_two">Veuillez saisir le code que vous avez reçu par sms au *******%1$s</string>
+    <string name="turnoffmsg">Veuillez vous connecter pour accepter des clients</string>
     <string name="navigation_drawer_open">Open Drawaer</string>
     <string name="navigation_drawer_close">Close Drawaer</string>
-    <string name="hi_label">Bonjour,</string>
+    <string name="hi_label">Salut,</string>
     <string name="phone_label">Numéro de téléphone</string>
     <string name="pwd_label">Mot de passe</string>
-    <string name="forgot_label">Mot de passe oublié ?</string>
-    <string name="signin_label">Connexion</string>
+    <string name="forgot_label">Mot de passe oublié?</string>
+    <string name="signin_label">Se connecter</string>
     <string name="new_pwd_label">Vous devez définir un nouveau mot de passe pour continuer</string>
     <string name="new_pwd">NOUVEAU MOT DE PASSE</string>
     <string name="country_label">Pays</string>
-    <string name="c_new_pwd">CONFIRMER MOT DE PASSE</string>
-    <string name="update_label">Mise à jour</string>
-    <string name="recovery_small_label">Récupérer le compte</string>
-    <string name="recovery_pin_label">ENTREZ LE PIN ICI</string>
+    <string name="c_new_pwd">CONFIRMEZ LE NOUVEAU MOT DE PASSE</string>
+    <string name="update_label">Mettre à jour</string>
+    <string name="recovery_small_label">Récupérer un compte</string>
+    <string name="recovery_pin_label">SAISISSEZ LE PIN ICI</string>
     <string name="recovery_resendcode_label">Renvoyer le code</string>
-    <string name="invalid_code_label">Code Invalide</string>
+    <string name="invalid_code_label">Code non valide</string>
     <string name="confirm_btn">Confirmer</string>
-    <string name="chat_btn">Chat</string>
-    <string name="chat_label">En cas de problème avec votre compte, adressez-vous à un agent.</string>
+    <string name="chat_btn">Ecrire</string>
+    <string name="chat_label">Si votre compte à des problèmes, contactez un agent.</string>
     <string name="assist_label">Veuillez saisir votre numéro de téléphone et un commentaire</string>
-    <string name="recorvery">Récupérer le compte</string>
+    <string name="recorvery">Récupérer un compte</string>
     <string name="comment_label">VEUILLEZ SAISIR UN COMMENTAIRE</string>
     <string name="submit">Envoyer</string>
     <string name="sent_comment">Commentaire envoyé !</string>
-    <string name="got_it">Ok, c\'est bon !</string>
+    <string name="got_it">Ok, compris!</string>
+    <string name="cancel"><u>Annuler</u></string>
     <string name="sign_required">Tous les champs sont obligatoires</string>
     <string name="password_similar">Les mots de passes doivent être identique</string>
     <string name="update_password">Mis à jour Mot de passe</string>
@@ -36,16 +37,23 @@
     <string name="new_pwd_1">Nouveau mot de passe</string>
     <string name="new_pwd_2">Confirmer mot de passe</string>
     <string name="code_sent">Code envoyé</string>
+    <string name="comment_sent">Commentaire envoyé !</string>
+    <string name="comment_notsent">Commentaire non envoyé !</string>
+    <string name="input_pin_label">SAISIR LE PIN ICI</string>
+    <string name="input_phone_label_">Veuillez saisir votre numéro de téléphone et un commentaire</string>
+    <string name="are_you_sure">Êtes-vous sûr ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">
-        <item>Commencez à gagner avec MonTaxi</item>
-        <item>Travaillez n\'importe quand, n\'importe où</item>
-        <item>Obtenez des instructions dans l\'application</item>
+        <item>Commencez à gagner de l\'argent avec MonTaxi</item>
+        <item>Travaillez partout, à tout moment</item>
+        <item>obtenez les intructions dans l\'application</item>
     </string-array>
     <string-array name="descriptions">
         <item></item>
-        <item>vous pouvez aller en ligne pour gagner de l\'argent quand vous le souhaitez. \nMonTaxi est disponible 24/7</item>
-        <item>Avec la navigation dans l\'application, \ nfaire connaître l\'emplacement et la destination de chaque utilisateur est simple</item>
+        <item>Vous pouvez gagner de l\'argent en ligne n\'importe quand . \nMonTaxi est disponible 24h/24 /7/7</item>
+        <item>Avec la navigation intégrée, \nla localisation et la destination de chaque conducteur est simple.</item>
     </string-array>
 </resources>

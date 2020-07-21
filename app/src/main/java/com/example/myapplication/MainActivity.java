@@ -7,18 +7,27 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.myapplication.Models.Config;
 import com.example.myapplication.Models.Utils.SessionDriver;
+import com.example.myapplication.activities.RecorvedChatActivity;
 import com.example.myapplication.activities.SignInActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -69,9 +78,7 @@ public class MainActivity extends AppCompatActivity {
                /* Toast.makeText(getApplicationContext(), item.getTitle() + " Selected", Toast.LENGTH_SHORT).show();
                 actionBar.setTitle(item.getTitle());*/
                if (item.getItemId()==R.id.nav_logout){
-                   sessionDriver.removeDriver();
-                   startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                   finish();
+                   Alert();
                }
                 drawer.closeDrawers();
                 return true;
@@ -96,5 +103,33 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void Alert() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
+        View contentView = getLayoutInflater().inflate(R.layout.logout_dialog,null);
+        dialog.setContentView(contentView);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(true);
+        Button exitText = (Button) contentView.findViewById(R.id.exit);
+        Button cancel = (Button) contentView.findViewById(R.id.cancel);
+
+        exitText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sessionDriver.removeDriver();
+                startActivity(new Intent(MainActivity.this, SignInActivity.class));
+                finish();
+            }
+        });
+
+        dialog.show();
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
     }
 }

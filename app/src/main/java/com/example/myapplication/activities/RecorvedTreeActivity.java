@@ -19,6 +19,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.Service.Networks;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import java.util.Map;
 
 public class RecorvedTreeActivity extends AppCompatActivity implements View.OnClickListener , networksJO {
 
-    private static final long START_TIME_IN_MILLIS = 60000 *3;
+    private static final long START_TIME_IN_MILLIS = 60000;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private TextView mTextViewCountDown;
@@ -40,7 +41,7 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
     private EditText Edt1, Edt2, Edt3, Edt4;
     private Button confirmBtn, chatBtn;
 
-    String phone;
+    String phone, pincode;
     boolean error;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_recovery3);
 
         init();
+        setCountDown();
     }
 
     private void init() {
@@ -56,6 +58,7 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
         mTextViewReceivesms = findViewById(R.id.receivesms);
         mTextViewCountDown = (TextView)findViewById(R.id.countdown);
         mTextViewReceivesms.setText(getString(R.string.recorver_two,phone.substring(phone.length()-2)));
+       // mTextViewReceivesms.setText(getString(R.string.recorver_two,"43"));
         mTextViewerrormsg = findViewById(R.id.msg);
         if (error){
             mTextViewerrormsg.setText(getString(R.string.invalid_code_label));
@@ -78,7 +81,17 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.confirm){
-
+            if (!Edt1.getText().toString().isEmpty()&&!Edt2.getText().toString().isEmpty()
+            &&!Edt3.getText().toString().isEmpty()&&!Edt4.getText().toString().isEmpty()) {
+                pincode = Edt1.getText().toString()+Edt2.getText().toString()+Edt3.getText().toString()+Edt4.getText().toString();
+                //sendCode(phone,pincode);
+                Intent intent = new Intent(RecorvedTreeActivity.this, RecorvedNewPassword.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("phone",phone);
+                intent.putExtra("code",pincode);
+                startActivity(intent);
+                finish();
+            }
         }else if (view.getId() == R.id.chat_btn){
             Intent intent = new Intent(RecorvedTreeActivity.this, RecorvedChatActivity.class);
             intent.putExtra("phone",phone);
@@ -123,7 +136,21 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
-
+        Config.hideDialog();
+        try {
+            if (jsonObject.getString("result").equals("success")){
+                Intent intent = new Intent(RecorvedTreeActivity.this, RecorvedNewPassword.class);
+                intent.putExtra("phone",phone);
+                intent.putExtra("code",pincode);
+                startActivity(intent);
+                finish();
+            }else {
+                mTextViewerrormsg.setText(getString(R.string.invalid_code_label));
+                mTextViewerrormsg.setTextColor(Color.RED);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -133,6 +160,10 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void geterrorVolley(Context context, String error) {
-
+        if (error == null) {
+            Config.hideDialog();
+            mTextViewerrormsg.setText(getString(R.string.invalid_code_label));
+            mTextViewerrormsg.setTextColor(Color.RED);
+        }
     }
 }

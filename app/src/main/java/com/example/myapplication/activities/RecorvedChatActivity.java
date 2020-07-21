@@ -1,38 +1,104 @@
 package com.example.myapplication.activities;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.example.myapplication.Interface.networksJO;
+import com.example.myapplication.Models.ChatComment;
+import com.example.myapplication.Models.Config;
 import com.example.myapplication.R;
+import com.example.myapplication.Service.Networks;
 
-public class RecorvedChatActivity extends AppCompatActivity {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class RecorvedChatActivity extends AppCompatActivity implements networksJO {
+
+    private EditText phoneEdt, commentEdt;
+    private Button validBtn;
+    ProgressBar progressBar;
 
     private String phone;
+    int screensize;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recoverychat);
 
         phone = getIntent().getStringExtra("phone");
-        ((Button)findViewById(R.id.email_sign_in_button)).setOnClickListener(new View.OnClickListener() {
+        phone = phone !=null?phone:"695797443";
+
+        init();
+        setListenner();
+    }
+
+    private void init() {
+        phoneEdt = (EditText)findViewById(R.id.phone);
+        commentEdt = (EditText)findViewById(R.id.comment);
+        progressBar = (ProgressBar)findViewById(R.id.progressbar);
+        screensize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        ((Button)findViewById(R.id.send)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Alert();
+                //Alert(getString(R.string.comment_sent),false);
+                if (phone.substring(3).equals(phoneEdt.getText().toString()))
+                    sendChatComment(phoneEdt.getText().toString(),commentEdt.getText().toString());
+                else {
+                    Config.showProgressDialog(progressBar);
+                    Alert(getString(R.string.comment_notsent), true);
+                }
             }
         });
     }
 
-    private void Alert() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    private void Alert(String message, boolean error) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
         View contentView = getLayoutInflater().inflate(R.layout.comment_dialog,null);
-        TextView exitText = (TextView)contentView.findViewById(R.id.exit);
+        dialog.setContentView(contentView);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setCancelable(true);
+        RelativeLayout exitText = (RelativeLayout) contentView.findViewById(R.id.exit);
+        TextView comment = (TextView)contentView.findViewById(R.id.comment);
+        TextView cancel = (TextView)contentView.findViewById(R.id.cancel);
+        ImageView ivEmoji = (ImageView)contentView.findViewById(R.id.emoji);
+        if (error) {
+            comment.setTextColor(getResources().getColor(R.color.commentnotsent));
+            Glide.with(RecorvedChatActivity.this).load(R.drawable.sad_emoji).into(ivEmoji);
+            cancel.setVisibility(View.VISIBLE);
+        }
+        else {
+            comment.setTextColor(getResources().getColor(R.color.commentsent));
+            Glide.with(RecorvedChatActivity.this).load(R.drawable.laugh_icon).into(ivEmoji);
+            cancel.setVisibility(View.GONE);
+        }
+
+        comment.setText(message);
+
         exitText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,9 +106,14 @@ public class RecorvedChatActivity extends AppCompatActivity {
                 finish();
             }
         });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Config.hideProgressDialog(progressBar);
+            }
+        });
 
-        builder.setView(contentView)
-                .show();
+        dialog.show();
     }
 
     @Override
@@ -51,5 +122,87 @@ public class RecorvedChatActivity extends AppCompatActivity {
         Intent i = new Intent(RecorvedChatActivity.this, RecorvedTreeActivity.class);
         i.putExtra("phone",phone);
         startActivity(i);
+    }
+
+    private void sendChatComment(String phone, String comment){
+        Config.ProgressDialog(RecorvedChatActivity.this);
+        Config.showDialog("");
+        Map<String, String> params = new HashMap<>();
+        params.put("phone",phone);
+        params.put("message",comment);
+
+        JSONObject jsonParams = new JSONObject(params);
+
+        Networks networks = new Networks(RecorvedChatActivity.this, this);
+        networks.postData(jsonParams.toString(),Config.chatcomment,new HashMap<String, String>());
+    }
+
+    @Override
+    public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
+
+    }
+
+    @Override
+    public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
+        Config.hideDialog();
+        if (jsonObject.has("id")){
+            try {
+                ChatComment chatComment = new ChatComment(jsonObject.getInt("id"),jsonObject.getString("phone"),
+                        jsonObject.getString("message"),jsonObject.getBoolean("read"),jsonObject.getBoolean("favoris"),
+                        jsonObject.getString("received_at"));
+
+                Alert(getString(R.string.comment_sent),false);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else {
+            Alert(getString(R.string.comment_notsent),true);
+        }
+    }
+
+    @Override
+    public void geterrorVolley(Context context, String error) {
+            if (error == null){
+                Config.hideDialog();
+                Alert(getString(R.string.comment_notsent),true);
+            }else {
+                Config.hideDialog();
+                Alert(getString(R.string.comment_notsent),true);
+            }
+    }
+
+    private void setListenner() {
+        phoneEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().length() == 9){
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        phoneEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green_2, 0);
+                    else
+                        phoneEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_green, 0);
+
+                }else if (charSequence.toString().length() != 9 && charSequence.toString().length() != 0) {
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        phoneEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_red_2, 0);
+                    else
+                        phoneEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_red, 0);
+                }else {
+                    if (screensize == Configuration.SCREENLAYOUT_SIZE_LARGE)
+                        phoneEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey_2, 0);
+                    else
+                        phoneEdt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.circle_grey, 0);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 }

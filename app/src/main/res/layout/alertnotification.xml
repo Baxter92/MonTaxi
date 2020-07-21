@@ -16,6 +16,6 @@
             android:layout_height="wrap_content"
             android:text="@string/no_result_found"
             android:layout_gravity="center"
-            android:textColor="@color/green_text"/>
+            android:textColor="@color/commentsent"/>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

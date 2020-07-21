@@ -21,6 +21,7 @@ public class Config {
     public static final String signIn = "http://api-dev.montaxii.com/api/v1/drivers/login";
     public static final String changePassword = "http://api-dev.montaxii.com/api/v1/drivers/change-password";
     public static final String recoveraccount = "http://api-dev.montaxii.com/api/v1/drivers/recover-account";
+    public static final String chatcomment = "http://api-dev.montaxii.com/api/v1/comments";
 
     public static void Alert(Context context, String message, boolean success){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -30,7 +31,7 @@ public class Config {
         TextView textView = (TextView)layoutView.findViewById(R.id.message);
         textView.setText(message);
         if (success)
-            textView.setTextColor(context.getResources().getColor(R.color.green_text));
+            textView.setTextColor(context.getResources().getColor(R.color.commentsent));
         else
             textView.setTextColor(context.getResources().getColor(R.color.red));
 
@@ -64,5 +65,12 @@ public class Config {
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
+    }
+
+    public static void showProgressDialog(View view){
+        view.setVisibility(View.VISIBLE);
+    }
+    public static void hideProgressDialog(View view){
+        view.setVisibility(View.GONE);
     }
 }

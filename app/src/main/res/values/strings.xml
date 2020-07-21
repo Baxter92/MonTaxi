@@ -29,6 +29,7 @@
     <string name="submit">Submit</string>
     <string name="sent_comment">Comment sent !</string>
     <string name="got_it">Ok, got it !</string>
+    <string name="cancel"><u>Cancel</u></string>
     <string name="sign_required">All field is Required</string>
     <string name="password_similar">Password must be same</string>
     <string name="update_password">Update password</string>
@@ -37,6 +38,13 @@
     <string name="new_pwd_1">New password</string>
     <string name="new_pwd_2">Confirm new password</string>
     <string name="code_sent">Code sent</string>
+    <string name="comment_sent">Comment sent !</string>
+    <string name="comment_notsent">Comment not sent !</string>
+    <string name="input_pin_label">INPUT THE PIN HERE</string>
+    <string name="input_phone_label_">Please input your Phone Number</string>
+    <string name="are_you_sure">Are you sure ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

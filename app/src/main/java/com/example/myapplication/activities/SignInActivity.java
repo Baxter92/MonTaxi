@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     SessionDriver sessionDriver;
     Drawable drawable;
     ProgressDialog progressDialog;
+    ProgressBar progressBar;
     Country country;
 
     private boolean flag;
@@ -103,6 +105,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         imageView = findViewById(R.id.iv);
         ll_error = findViewById(R.id.flashmessage);
         errortvt = findViewById(R.id.flashmessage_txt);
+        progressBar = findViewById(R.id.progressbar);
         gotIt = findViewById(R.id.email_sign_in_button); gotIt.setOnClickListener(this);
         forgotTxt = findViewById(R.id.forgot); forgotTxt.setOnClickListener(this);
         numberEdt.addTextChangedListener(new TextWatcher() {
@@ -221,8 +224,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void SignIn(String number, String password) {
-        showDialog("login");
-        String numberCC = Config.cameroonFlag.substring(1)+number;
+        showProgressDialog();
+        //showDialog("login");
+       // String numberCC = Config.cameroonFlag.substring(1)+number;
+        String numberCC = country.getCountry_code()+number;
         SignIn signIn = new SignIn(numberCC,password);
         Log.e("jsondata",signIn.JsonUser());
         networks.postData(signIn.JsonUser(),Config.signIn,new HashMap<String, String>());
@@ -249,7 +254,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int statusCode) {
-        hideDialog();
+        //hideDialog();
+        hideProgressDialog();
         Log.e("jsondata","status code "+statusCode);
         try {
             if (jsonObject.has("error")){
@@ -279,8 +285,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void geterrorVolley(Context context, String error) {
-        hideDialog();
-
+       // hideDialog();
+            hideProgressDialog();
             if (error == null){
                // Config.Alert(SignInActivity.this,getString(R.string.un_authorize),false);
                 showErrorMessage(getString(R.string.un_authorize));
@@ -296,7 +302,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             progressDialog.dismiss();
         }
     }
-
+    private void showProgressDialog(){
+        progressBar.setVisibility(View.VISIBLE);
+        gotIt.setVisibility(View.GONE);
+    }
+    private void hideProgressDialog(){
+        progressBar.setVisibility(View.GONE);
+        gotIt.setVisibility(View.VISIBLE);
+    }
     private void showErrorMessage(String texterror){
         forgotTxt.setVisibility(View.GONE);
         ll_error.setVisibility(View.VISIBLE);

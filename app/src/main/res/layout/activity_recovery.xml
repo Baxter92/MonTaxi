@@ -31,14 +31,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight=".7">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="18sp"
                         android:textColor="#393939"
                         android:lineSpacingExtra="1.7sp"
-                        android:text="Hi,"
+                        android:text="@string/hi_label"
                         />
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -57,15 +57,15 @@
                             />
                     </LinearLayout>
                 </LinearLayout>
-                <!--RelativeLayout
+                <RelativeLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="0dp"
-                                    android:layout_weight="1">
+                                    android:layout_weight=".7">
                                     <ImageView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerVertical="true"
-                                        android:layout_marginTop="@dimen/spacing_xlarge"
+                                        android:layout_alignParentBottom="true"
                                         android:layout_marginLeft="@dimen/spacing_xlarge"
                                         android:src="@drawable/circle_yellow"/>
                                     <ImageView
@@ -75,19 +75,19 @@
                                         android:layout_marginTop="@dimen/spacing_middle"
                                         android:src="@drawable/smartphones_3"
                                         android:layout_marginLeft="@dimen/spacing_xlarge" />
-                                </RelativeLayout-->
-                <ImageView
+                                </RelativeLayout>
+                <!--ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight=".7"
                     android:layout_marginStart="@dimen/spacing_xlarge"
                     android:layout_marginTop="@dimen/spacing_middle"
-                    android:src="@drawable/groupe_131" />
+                    android:src="@drawable/groupe_131" /-->
 
                 <LinearLayout
                     android:layout_width="@dimen/card_in_signin"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_weight=".7">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                         android:layout_gravity="center"
                         android:lineSpacingExtra="2sp"
                         android:gravity="center_horizontal"
-                        android:text="Please input your Phone Number"
+                        android:text="@string/input_phone_label_"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -119,13 +119,13 @@
                         android:textColor="#393939"
                         android:layout_gravity="center"
                         android:lineSpacingExtra="1.7sp"
-                        android:text="Recover Account"
+                        android:text="@string/recorvery"
                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight=".7"
                     android:paddingRight="@dimen/spacing_xxxlarge"
                     android:orientation="vertical"
                     android:weightSum="1">
@@ -159,8 +159,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight=".5"
-                        android:hint="Phone Number"
-                        android:inputType="text"
+                        android:hint="@string/phone_label"
+                        android:inputType="phone"
                         android:textSize="13sp"
                         android:textColor="#393939"
                         android:maxLines="1"
@@ -172,12 +172,21 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/spacing_medium"
                     android:paddingRight="@dimen/spacing_xxxlarge"
-                    android:layout_weight=".8">
+                    android:layout_weight=".7">
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:visibility="gone"
+                        style="@style/Widget.AppCompat.ProgressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:progressDrawable="@drawable/circular_progress_bar"/>
                     <Button
                         android:id="@+id/email_sign_in_button"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
+                        android:layout_height="@dimen/spacing_xxlarge"
                         android:background="@drawable/btn_signin"
                         android:text="@string/verify"
                         android:textSize="13sp"

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,7 +39,10 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
     private String flagCountry;
     private EditText countryEdt;
     private EditText numberEdt;
+    private Button valid;
+    ProgressBar progressBar;
     boolean flag = false;
+    Country country;
     int screensize;
     String lang;
     Networks networks;
@@ -55,12 +59,14 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
         ivCountry = (ImageView)findViewById(R.id.iv);
         countryEdt = (EditText)findViewById(R.id.country);
         numberEdt = (EditText)findViewById(R.id.phone);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
         networks = new Networks(RecorvedActivity.this,this);
         screensize = getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
         lang = Locale.getDefault().getLanguage();
         Config.ProgressDialog(this);
         setListenner();
-        ((Button)findViewById(R.id.email_sign_in_button)).setOnClickListener(new View.OnClickListener() {
+        valid = (Button)findViewById(R.id.email_sign_in_button);
+        valid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 verifyPhone();
@@ -106,11 +112,12 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
 
     @Override
     public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
-        Config.hideDialog();
+      //  Config.hideDialog();
+        hideProgressDialog();
         if (flag) {
             try {
                 JSONObject FlagJson = jsonArray.getJSONObject(0);
-                Country country = new Country(FlagJson.getString("flag"), FlagJson.getString("country_code"),
+                 country = new Country(FlagJson.getString("flag"), FlagJson.getString("country_code"),
                         FlagJson.getString("alpha3code"), FlagJson.getJSONObject("name").getString("en"),
                         FlagJson.getJSONObject("name").getString("fr"));
                 if (lang.equals("en"))
@@ -127,7 +134,7 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
                 String result = jsonObject.getString("result");
                 if (result.equals("success")){
                     Intent intent = new Intent(RecorvedActivity.this, RecorvedTwoActivity.class);
-                    intent.putExtra("phone",numberEdt.getText().toString());
+                    intent.putExtra("phone",country.getCountry_code()+numberEdt.getText().toString());
                     startActivity(intent);
                 }else {
 
@@ -145,7 +152,8 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
 
     @Override
     public void geterrorVolley(Context context, String error) {
-        Config.hideDialog();
+        if (error == null)
+            hideProgressDialog();
     }
 
     private void setCountryFlag(String flagpath, String code) {
@@ -185,14 +193,24 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
     }
 
     private void verifyPhone() {
-        Config.showDialog(getString(R.string.verify));
+        //Config.showDialog(getString(R.string.verify));
+        showProgressDialog();
         List<String> paths = new ArrayList<>();
         paths.add("phone_validation");
         paths.add("requestcode");
+        String phone = country.getCountry_code()+numberEdt.getText().toString();
         Map<String, String> phoneParam = new HashMap<>();
-        phoneParam.put("phone",numberEdt.getText().toString());
-        phoneParam.put("type","phone");
+        phoneParam.put("phone",phone);
+        phoneParam.put("type","driver");
         networks.getvolley(networks.EncodeUrl(paths,phoneParam));
 
+    }
+    private void showProgressDialog(){
+        progressBar.setVisibility(View.VISIBLE);
+        valid.setVisibility(View.GONE);
+    }
+    private void hideProgressDialog(){
+        progressBar.setVisibility(View.GONE);
+        valid.setVisibility(View.VISIBLE);
     }
 }

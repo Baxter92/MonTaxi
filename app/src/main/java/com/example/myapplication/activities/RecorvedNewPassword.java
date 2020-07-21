@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,12 +46,13 @@ public class RecorvedNewPassword extends AppCompatActivity implements networksJO
 
     private void init() {
         phone = getIntent().getStringExtra("phone");
-        pincode = getIntent().getStringExtra("pincode");
+        pincode = getIntent().getStringExtra("code");
 
         passwEdt = findViewById(R.id.pwd1);
         confpasswEdt = findViewById(R.id.pwd2);
         mTextViewReceivesms = (TextView)findViewById(R.id.receivesms);
         mTextViewReceivesms.setText(getString(R.string.recorver_two,phone.substring(phone.length()-2)));
+        //mTextViewReceivesms.setText(getString(R.string.recorver_two,"43"));
         updateBtn = findViewById(R.id.update);
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +78,7 @@ public class RecorvedNewPassword extends AppCompatActivity implements networksJO
         params.put("pincode",pincode);
 
         JSONObject jsonParams = new JSONObject(params);
+        Log.e("jsondata",jsonParams.toString());
         networks.postData(jsonParams.toString(),Config.recoveraccount,new HashMap<String, String>());
     }
 
@@ -112,7 +115,7 @@ public class RecorvedNewPassword extends AppCompatActivity implements networksJO
             }
         });
 
-        passwEdt.addTextChangedListener(new TextWatcher() {
+        confpasswEdt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -164,6 +167,8 @@ public class RecorvedNewPassword extends AppCompatActivity implements networksJO
 
     @Override
     public void geterrorVolley(Context context, String error) {
-        Config.hideDialog();
+        if (error == null) {
+            Config.hideDialog();
+        }
     }
 }

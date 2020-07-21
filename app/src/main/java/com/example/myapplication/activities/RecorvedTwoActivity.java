@@ -28,7 +28,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class RecorvedTwoActivity extends AppCompatActivity implements View.OnClickListener, networksJO {
-    private static final long START_TIME_IN_MILLIS = 60000 *3;
+    private static final long START_TIME_IN_MILLIS = 60000;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private TextView mTextViewCountDown;
@@ -36,6 +36,7 @@ public class RecorvedTwoActivity extends AppCompatActivity implements View.OnCli
     private TextView mTextViewReceivesms;
     private String phone, pincode;
     private EditText Edt1, Edt2, Edt3, Edt4;
+    private boolean sent = false;
     Intent intent;
 
     @Override
@@ -56,15 +57,23 @@ public class RecorvedTwoActivity extends AppCompatActivity implements View.OnCli
         mTextViewCountDown = (TextView)findViewById(R.id.countdown);
         mTextViewReceivesms = (TextView)findViewById(R.id.receivesms);
         mTextViewResendCode = (TextView)findViewById(R.id.resend_code);mTextViewResendCode.setOnClickListener(this);
-        mTextViewReceivesms.setText(getString(R.string.recorver_two,phone.substring(phone.length()-2)));
+        //mTextViewReceivesms.setText(getString(R.string.recorver_two,phone.substring(phone.length()-2)));
+        mTextViewReceivesms.setText(getString(R.string.recorver_two,"43"));
         ((Button)findViewById(R.id.email_sign_in_button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //startActivity(new Intent(RecorvedTwoActivity.this, RecorvedTreeActivity.class));
                 if (!Edt1.getText().toString().isEmpty()&&!Edt2.getText().toString().isEmpty()&&!Edt3.getText().toString().isEmpty()
                 &&!Edt4.getText().toString().isEmpty()) {
-                    pincode = Edt1.getText().toString()+Edt2.getText().toString()+Edt3.getText().toString()+Edt4.getText().toString().isEmpty();
-                    sendCode(phone,pincode);
+                    pincode = Edt1.getText().toString()+Edt2.getText().toString()+Edt3.getText().toString()+Edt4.getText().toString();
+                    //sendCode(phone,pincode);
+                    sent = true;
+                    Intent intent = new Intent(RecorvedTwoActivity.this, RecorvedNewPassword.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.putExtra("phone",phone);
+                    intent.putExtra("code",pincode);
+                    startActivity(intent);
+                    finish();
                 }
             }
         });
@@ -99,10 +108,12 @@ public class RecorvedTwoActivity extends AppCompatActivity implements View.OnCli
                 mTextViewCountDown.setText(timeLeftFormatted);
             }
             public void onFinish() {
-                mTextViewCountDown.setText("--:--");
-                intent.putExtra("error",false);
-                startActivity(intent);
-                finish();
+                if (!sent) {
+                    mTextViewCountDown.setText("--:--");
+                    intent.putExtra("error", false);
+                    startActivity(intent);
+                    finish();
+                }
             }
         }.start();
 
@@ -119,12 +130,14 @@ public class RecorvedTwoActivity extends AppCompatActivity implements View.OnCli
         try {
             if (jsonObject.getString("result").equals("success")){
                 Intent intent = new Intent(RecorvedTwoActivity.this, RecorvedNewPassword.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("phone",phone);
                 intent.putExtra("code",pincode);
                 startActivity(intent);
                 finish();
             }else {
                 intent.putExtra("error",true);
+                intent.putExtra("phone",phone);
                 startActivity(intent);
                 finish();
             }
@@ -140,9 +153,12 @@ public class RecorvedTwoActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void geterrorVolley(Context context, String error) {
-        Config.hideDialog();
-        intent.putExtra("error",true);
-        startActivity(intent);
-        finish();
+        if (error == null) {
+            Config.hideDialog();
+            intent.putExtra("error", true);
+            intent.putExtra("phone", phone);
+            startActivity(intent);
+            finish();
+        }
     }
 }

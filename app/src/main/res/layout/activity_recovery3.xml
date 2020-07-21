@@ -21,7 +21,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.7"
+            android:layout_weight="1.6"
             android:orientation="horizontal"
             android:weightSum="2">
 
@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:layout_weight=".7">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -67,12 +67,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_weight=".7">
                     <TextView
                         android:id="@+id/receivesms"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="14sp"
+                        android:textSize="15sp"
                         android:textColor="#393939"
                         android:layout_gravity="top"
                         android:lineSpacingExtra="2sp"
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_large"
-                        android:textSize="17sp"
+                        android:textSize="18sp"
                         android:textColor="#393939"
                         android:layout_gravity="bottom"
                         android:lineSpacingExtra="1.7sp"
@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_middle"
-                    android:textSize="10sp"
+                    android:textSize="13sp"
                     android:layout_marginLeft="@dimen/spacing_middle"
                     android:textColor="#393939"
                     android:lineSpacingExtra="1sp"
@@ -111,7 +111,7 @@
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_xxlarge"
+                    android:layout_height="@dimen/spacing_xxxlarge"
                     android:paddingRight="@dimen/spacing_xxxlarge"
                     android:weightSum="3"
                     android:orientation="horizontal">
@@ -125,7 +125,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="29dp"
+                        android:layout_height="@dimen/spacing_xxlarge"
                         android:layout_gravity="bottom"
                         android:layout_weight="1.7"
                         android:orientation="horizontal">
@@ -207,7 +207,6 @@
                         android:layout_weight=".7"
                         android:orientation="vertical">
                         <TextView
-                            android:id="@+id/countdown"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="11sp"
@@ -217,9 +216,10 @@
                             />
 
                         <TextView
+                            android:id="@+id/countdown"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="5.7sp"
+                            android:textSize="11sp"
                             android:textColor="#393939"
                             android:lineSpacingExtra="1sp"
                             android:text="00:40"
@@ -230,7 +230,7 @@
                     android:id="@+id/msg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="7.3sp"
+                    android:textSize="12sp"
                     android:textColor="#ff0000"
                     android:layout_marginTop="@dimen/spacing_medium"
                     android:layout_marginBottom="@dimen/spacing_medium"
@@ -240,16 +240,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/spacing_medium"
                     android:paddingRight="@dimen/spacing_xxxlarge"
                     android:layout_weight="1">
                     <Button
                         android:id="@+id/confirm"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/spacing_xlarge"
-                        android:layout_gravity="center"
+                        android:layout_height="@dimen/spacing_xxlarge"
                         android:background="@drawable/btn_signin"
                         android:text="@string/confirm_btn"
-                        android:textSize="8.3sp"
+                        android:textSize="13sp"
                         android:textColor="#393939" />
                 </LinearLayout>
             </LinearLayout>
@@ -258,7 +258,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:layout_weight=".3">
+                android:layout_weight=".4">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -268,13 +268,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:src="@drawable/email_2"/>
+                        android:src="@drawable/email_3"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/spacing_middle"
-                        android:textSize="8sp"
+                        android:textSize="14sp"
                         android:textColor="#393939"
                         android:lineSpacingExtra="1sp"
                         android:text="@string/chat_label"
@@ -282,7 +282,7 @@
                     <Button
                         android:id="@+id/chat_btn"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/spacing_slarge"
+                        android:layout_height="@dimen/spacing_xlarge"
                         android:layout_marginLeft="@dimen/spacing_middle"
                         android:layout_gravity="center"
                         android:background="@drawable/btn_signin"

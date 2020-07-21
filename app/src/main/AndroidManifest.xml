@@ -22,7 +22,11 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activities.RecorvedTwoActivity"
+            android:name=".activities.RecorvedChatActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.RecorvedNewPassword"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
@@ -30,11 +34,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activities.RecorvedChatActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activities.RecorvedNewPassword"
+            android:name=".activities.RecorvedTwoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
