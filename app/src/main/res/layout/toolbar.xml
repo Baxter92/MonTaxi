@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
+    android:layout_height="@dimen/spacing_xslarge"
     android:background="@color/taxiapp"
     app:contentInsetStartWithNavigation="0dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -12,16 +12,38 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="@dimen/spacing_xlarge"
+            android:layout_height="@dimen/spacing_xlarge"
+            android:layout_centerVertical="true"
+            android:src="@drawable/menu"/>
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_toRightOf="@+id/menu"
+            android:layout_width="@dimen/spacing_xxlarge"
+            android:layout_height="@dimen/spacing_xxlarge"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/spacing_xlarge"
+            android:src="@drawable/pexels_photo_1408196"/>
         <Switch
             android:id="@+id/switch_connection"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_centerInParent="true"
             android:track="@drawable/switch_track_selector"
-            android:switchMinWidth="75dp"
-            android:thumb="@drawable/switch_thumb_selector"
+            android:switchMinWidth="@dimen/spacing_xslarge"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"/>
+
+        <ImageView
+            android:id="@+id/notif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/alerte_2"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 </androidx.appcompat.widget.Toolbar>
 

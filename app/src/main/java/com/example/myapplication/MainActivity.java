@@ -13,6 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,18 +21,25 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.Interface.DrawerItemClick;
 import com.example.myapplication.Models.Config;
+import com.example.myapplication.Models.Utils.DrawerModel;
 import com.example.myapplication.Models.Utils.SessionDriver;
 import com.example.myapplication.activities.RecorvedChatActivity;
 import com.example.myapplication.activities.SignInActivity;
+import com.example.myapplication.adapter.DrawerItemCustomAdapter;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements DrawerItemClick {
 
     private EditText countryEdt;
     private EditText numberEdt;
@@ -42,13 +50,20 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     SessionDriver sessionDriver;
 
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private List<DrawerModel> drawerModelList;
+    private DrawerItemCustomAdapter adapter;
+    ActionBarDrawerToggle mDrawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drawer);
+        setContentView(R.layout.activity_main);
 
-        initToolbar();
-        initNavigationMenu();
+       // initToolbar();
+       // initNavigationMenu();
+        initMenu();
     }
 
     private void initToolbar() {
@@ -58,6 +73,69 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setTitle("");
+    }
+
+    private void initMenu(){
+        sessionDriver = new SessionDriver(this);
+        drawerModelList = new ArrayList<>();
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        adapter = new DrawerItemCustomAdapter(this,drawerModelList, this);
+        mDrawerList.setAdapter(adapter);
+        //menuIcon();
+        menu();
+        //mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        setupDrawerToggle();
+    }
+
+    private void menuIcon() {
+        drawerModelList.clear();
+        drawerModelList.add(new DrawerModel(true,R.drawable.ic_home_2,getString(R.string.nav_home)));
+        drawerModelList.add(new DrawerModel(true,R.drawable.ic_taxi_2,getString(R.string.nav_taxi)));
+        drawerModelList.add(new DrawerModel(true,R.drawable.ic_profile_2,getString(R.string.nav_profil)));
+        drawerModelList.add(new DrawerModel(true,R.drawable.ic_request_2,getString(R.string.nav_request)));
+        drawerModelList.add(new DrawerModel(true,R.drawable.ic_request_accepted_2,getString(R.string.nav_request_true)));
+        drawerModelList.add(new DrawerModel(true,R.drawable.ic_wallet_2,getString(R.string.nav_wallet)));
+        drawerModelList.add(new DrawerModel(true,R.drawable.ic_history_2,getString(R.string.nav_history)));
+        drawerModelList.add(new DrawerModel(true,R.drawable.ic_contact_2,getString(R.string.nav_contact)));
+        drawerModelList.add(new DrawerModel(true,R.drawable.ic_log_out_2,getString(R.string.nav_logout)));
+
+        adapter.notifyDataSetChanged();
+    }
+
+    private void menu() {
+        drawerModelList.clear();
+        drawerModelList.add(new DrawerModel(false,R.drawable.ic_home_2,getString(R.string.nav_home)));
+        drawerModelList.add(new DrawerModel(false,R.drawable.ic_taxi_2,getString(R.string.nav_taxi)));
+        drawerModelList.add(new DrawerModel(false,R.drawable.ic_profile_2,getString(R.string.nav_profil)));
+        drawerModelList.add(new DrawerModel(false,R.drawable.ic_request_2,getString(R.string.nav_request)));
+        drawerModelList.add(new DrawerModel(false,R.drawable.ic_request_accepted_2,getString(R.string.nav_request_true)));
+        drawerModelList.add(new DrawerModel(false,R.drawable.ic_wallet_2,getString(R.string.nav_wallet)));
+        drawerModelList.add(new DrawerModel(false,R.drawable.ic_history_2,getString(R.string.nav_history)));
+        drawerModelList.add(new DrawerModel(false,R.drawable.ic_contact_2,getString(R.string.nav_contact)));
+        drawerModelList.add(new DrawerModel(false,R.drawable.ic_log_out_2,getString(R.string.nav_logout)));
+
+        adapter.notifyDataSetChanged();
+    }
+
+
+    void setupToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    void setupDrawerToggle(){
+         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+        mDrawerLayout.openDrawer(Gravity.START);
     }
 
     private void initNavigationMenu() {
@@ -109,6 +187,7 @@ public class MainActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
         View contentView = getLayoutInflater().inflate(R.layout.logout_dialog,null);
+        contentView.setBackgroundResource(R.color.commentbg);
         dialog.setContentView(contentView);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setCancelable(true);
@@ -131,5 +210,12 @@ public class MainActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void clicked(int position) {
+        if (position == drawerModelList.size()-1){
+            Alert();
+        }
     }
 }

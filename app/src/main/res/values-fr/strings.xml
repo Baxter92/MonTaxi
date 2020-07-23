@@ -44,6 +44,15 @@
     <string name="are_you_sure">Êtes-vous sûr ?</string>
     <string name="yes">Oui</string>
     <string name="no">Non</string>
+    <string name="nav_home">Accueil </string>
+    <string name="nav_taxi">Mon Taxis</string>
+    <string name="nav_profil">Profil</string>
+    <string name="nav_request">Requetes</string>
+    <string name="nav_request_true">Requetes accepte</string>
+    <string name="nav_wallet">Mon portefeuille</string>
+    <string name="nav_history">Historique</string>
+    <string name="nav_contact">Contactez nous</string>
+    <string name="nav_logout">Deconnexion</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

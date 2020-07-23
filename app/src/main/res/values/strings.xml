@@ -44,7 +44,16 @@
     <string name="input_phone_label_">Please input your Phone Number</string>
     <string name="are_you_sure">Are you sure ?</string>
     <string name="yes">Yes</string>
-    <string name="no">No </string>
+    <string name="no">No</string>
+    <string name="nav_home">Home </string>
+    <string name="nav_taxi">My Taxis</string>
+    <string name="nav_profil">Profil</string>
+    <string name="nav_request">Requests</string>
+    <string name="nav_request_true">Requests accepted</string>
+    <string name="nav_wallet">My Wallet</string>
+    <string name="nav_history">History</string>
+    <string name="nav_contact">Contact Us</string>
+    <string name="nav_logout">Log Out</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">
@@ -57,4 +66,11 @@
         <item>you can go online to make money whenever you want.\nMonTaxi is available 24/7</item>
         <item>With in app-navigation,\nfinding each riders location and destination is simple</item>
     </string-array>
+
+    <string-array name="navigation_drawer_items_array">
+        <item>Connect</item>
+        <item>Fixtures</item>
+        <item>Table</item>
+    </string-array>
+
 </resources>

@@ -44,6 +44,7 @@
         </RelativeLayout>
 
         <Button
+            android:id="@+id/exit"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center"
@@ -57,12 +58,13 @@
             android:textStyle="bold"
             />
         <Button
+            android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/btn_black"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_round_black"
             android:textSize="13sp"
-            android:layout_weight="1"
+            android:layout_weight=".7"
             android:textColor="#ffffff"
             android:lineSpacingExtra="-0.7sp"
             android:layout_centerInParent="true"
