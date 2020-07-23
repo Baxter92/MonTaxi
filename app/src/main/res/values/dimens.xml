@@ -21,12 +21,13 @@
 
     <dimen name="arrow_stepper">55dp</dimen>
     <dimen name="view_1">200dp</dimen>
-    <dimen name="card_signin">250dp</dimen>
+    <dimen name="card_signin">300dp</dimen>
     <dimen name="card_xsignin">350dp</dimen>
-    <dimen name="card_in_signin">210dp</dimen>
+    <dimen name="card_in_signin">220dp</dimen>
     <dimen name="card_in_xsignin">310dp</dimen>
     <dimen name="card_comment">120dp</dimen>
     <dimen name="card_comment2">180dp</dimen>
+    <dimen name="card_comment3">210dp</dimen>
     <dimen name="card_in_comment">85dp</dimen>
     <dimen name="card_in_comment_2">135dp</dimen>
 </resources>

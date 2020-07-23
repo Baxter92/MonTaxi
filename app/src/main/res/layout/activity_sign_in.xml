@@ -88,7 +88,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.7"
-                        android:hint="@string/phone_label"
+                        android:hint="@string/country_label"
                         android:inputType="text"
                         android:textSize="8sp"
                         android:textColor="#393939"
@@ -130,7 +130,7 @@
                     android:layout_width="match_parent"
                     android:orientation="vertical"
                     android:layout_height="0dp"
-                    android:layout_weight="1.3">
+                    android:layout_weight="1.5">
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
                     <Button
                         android:id="@+id/email_sign_in_button"
                         android:layout_width="match_parent"
-                        android:layout_height="23dp"
+                        android:layout_height="32dp"
                         android:layout_gravity="bottom"
                         android:background="@drawable/btn_signin"
                         android:text="@string/signin_label"

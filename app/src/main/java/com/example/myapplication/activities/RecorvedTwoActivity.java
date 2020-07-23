@@ -58,7 +58,7 @@ public class RecorvedTwoActivity extends AppCompatActivity implements View.OnCli
         mTextViewReceivesms = (TextView)findViewById(R.id.receivesms);
         mTextViewResendCode = (TextView)findViewById(R.id.resend_code);mTextViewResendCode.setOnClickListener(this);
         //mTextViewReceivesms.setText(getString(R.string.recorver_two,phone.substring(phone.length()-2)));
-        mTextViewReceivesms.setText(getString(R.string.recorver_two,"43"));
+       mTextViewReceivesms.setText(getString(R.string.recorver_two,"43"));
         ((Button)findViewById(R.id.email_sign_in_button)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

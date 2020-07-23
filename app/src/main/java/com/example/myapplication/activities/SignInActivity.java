@@ -185,7 +185,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
            // Toast.makeText(view.getContext(),getString(R.string.forgot_label),Toast.LENGTH_SHORT).show();
         }else if (view.getId()==R.id.email_sign_in_button){
             if (!numberEdt.getText().toString().isEmpty() &&
-                    !passwordEdt.getText().toString().isEmpty()) {
+                    !passwordEdt.getText().toString().isEmpty()&&!countryEdt.getText().toString().isEmpty()) {
                 SignIn(numberEdt.getText().toString(), passwordEdt.getText().toString());
             }/*else {
                // Toast.makeText(view.getContext(),getString(R.string.sign_required),Toast.LENGTH_LONG).show();

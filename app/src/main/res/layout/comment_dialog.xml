@@ -2,7 +2,9 @@
     <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="@dimen/card_in_comment"
+        android:layout_marginTop="@dimen/spacing_middle"
+        android:layout_marginBottom="@dimen/spacing_middle"
+        android:layout_width="@dimen/card_comment"
         android:layout_height="@dimen/card_comment"
         android:background="@color/commentbg"
         app:cardCornerRadius="15dp"
@@ -43,24 +45,19 @@
             />
     </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/exit"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:background="@drawable/btn_primary_2"
-            android:layout_gravity="center"
-            android:layout_weight="1">
-            <TextView
+            <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="8sp"
+                android:layout_height="0dp"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_round_red"
+                android:textSize="13sp"
+                android:layout_weight="1"
                 android:textColor="#ffffff"
                 android:lineSpacingExtra="-0.7sp"
                 android:layout_centerInParent="true"
                 android:text="@string/got_it"
                 android:textStyle="bold"
                 />
-        </RelativeLayout>
         <TextView
             android:id="@+id/cancel"
             android:visibility="gone"

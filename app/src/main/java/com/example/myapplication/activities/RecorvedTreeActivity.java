@@ -57,8 +57,8 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
         error = getIntent().getBooleanExtra("error",false);
         mTextViewReceivesms = findViewById(R.id.receivesms);
         mTextViewCountDown = (TextView)findViewById(R.id.countdown);
-        mTextViewReceivesms.setText(getString(R.string.recorver_two,phone.substring(phone.length()-2)));
-       // mTextViewReceivesms.setText(getString(R.string.recorver_two,"43"));
+       // mTextViewReceivesms.setText(getString(R.string.recorver_two,phone.substring(phone.length()-2)));
+        mTextViewReceivesms.setText(getString(R.string.recorver_two,"43"));
         mTextViewerrormsg = findViewById(R.id.msg);
         if (error){
             mTextViewerrormsg.setText(getString(R.string.invalid_code_label));

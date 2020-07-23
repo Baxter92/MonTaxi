@@ -44,7 +44,7 @@
     <string name="input_phone_label_">Please input your Phone Number</string>
     <string name="are_you_sure">Are you sure ?</string>
     <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="no">No </string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

@@ -18,7 +18,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activities.RecorvedActivity"
+            android:name=".activities.SplashActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
@@ -34,7 +34,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activities.RecorvedTwoActivity"
+            android:name=".activities.RecorvedActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
@@ -50,7 +50,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activities.SplashActivity"
+            android:name=".activities.RecorvedTwoActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape">
             <intent-filter>
