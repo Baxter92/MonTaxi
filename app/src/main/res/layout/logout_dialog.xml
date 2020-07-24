@@ -50,10 +50,9 @@
             android:layout_gravity="center"
             android:background="@drawable/btn_round_red"
             android:textSize="13sp"
-            android:layout_weight=".7"
+            android:layout_weight=".9"
             android:textColor="#ffffff"
             android:lineSpacingExtra="-0.7sp"
-            android:layout_centerInParent="true"
             android:text="@string/yes"
             android:textStyle="bold"
             />
@@ -64,10 +63,9 @@
             android:layout_gravity="center"
             android:background="@drawable/btn_round_black"
             android:textSize="13sp"
-            android:layout_weight=".7"
+            android:layout_weight=".9"
             android:textColor="#ffffff"
             android:lineSpacingExtra="-0.7sp"
-            android:layout_centerInParent="true"
             android:text="@string/no"
             android:textStyle="bold"
             />

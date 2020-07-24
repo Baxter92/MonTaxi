@@ -17,7 +17,9 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,16 +47,15 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
     private EditText numberEdt;
     private EditText passwordEdt;
     private Button gotIt;
+    private ImageView menuIcon;
 
     private ActionBar actionBar;
     private Toolbar toolbar;
     SessionDriver sessionDriver;
 
-    private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private List<DrawerModel> drawerModelList;
     private DrawerItemCustomAdapter adapter;
-    ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,19 +79,27 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
     private void initMenu(){
         sessionDriver = new SessionDriver(this);
         drawerModelList = new ArrayList<>();
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+        menuIcon = (ImageView)findViewById(R.id.menu);
 
         adapter = new DrawerItemCustomAdapter(this,drawerModelList, this);
         mDrawerList.setAdapter(adapter);
-        //menuIcon();
-        menu();
-        //mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        setupDrawerToggle();
+
+           menuIcon();
+        menuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (drawerModelList.get(0).isOnlyIcon()) {
+                    menu();
+                }else {
+                    menuIcon();
+                }
+            }
+        });
     }
 
     private void menuIcon() {
+        mDrawerList.getLayoutParams().width = 70;
         drawerModelList.clear();
         drawerModelList.add(new DrawerModel(true,R.drawable.ic_home_2,getString(R.string.nav_home)));
         drawerModelList.add(new DrawerModel(true,R.drawable.ic_taxi_2,getString(R.string.nav_taxi)));
@@ -106,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
     }
 
     private void menu() {
+        mDrawerList.getLayoutParams().width = 200;
         drawerModelList.clear();
         drawerModelList.add(new DrawerModel(false,R.drawable.ic_home_2,getString(R.string.nav_home)));
         drawerModelList.add(new DrawerModel(false,R.drawable.ic_taxi_2,getString(R.string.nav_taxi)));
@@ -127,16 +137,6 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
-    void setupDrawerToggle(){
-         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
-        mDrawerLayout.openDrawer(Gravity.START);
-    }
 
     private void initNavigationMenu() {
         sessionDriver = new SessionDriver(this);
@@ -187,10 +187,17 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // before
         View contentView = getLayoutInflater().inflate(R.layout.logout_dialog,null);
-        contentView.setBackgroundResource(R.color.commentbg);
         dialog.setContentView(contentView);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setCancelable(true);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width =210;
+        lp.height = 210;
+       // lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        //lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
         Button exitText = (Button) contentView.findViewById(R.id.exit);
         Button cancel = (Button) contentView.findViewById(R.id.cancel);
 
@@ -204,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
         });
 
         dialog.show();
+        dialog.getWindow().setAttributes(lp);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

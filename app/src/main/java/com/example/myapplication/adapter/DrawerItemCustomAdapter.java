@@ -73,13 +73,15 @@ public class DrawerItemCustomAdapter extends BaseAdapter {
         //sets the text for item name and item description from the current item object
         if (!currentItem.isOnlyIcon()) {
             title.setText(currentItem.getName());
+           // iconImg.setColorFilter(context.getResources().getColor(R.color.white));
+            //container.setBackgroundColor(context.getResources().getColor(R.color.drawer_color));
         }else {
             title.setText("");
-            if (i==0 || i==dataList.size()-1) {
+            /*if (i == 0 ){
+                iconImg.setColorFilter(context.getResources().getColor(R.color.black));
                 container.setBackgroundColor(context.getResources().getColor(R.color.taxiapp));
-                if (i!=dataList.size()-1)
-                    iconImg.setColorFilter(context.getResources().getColor(R.color.black));
-            }
+            }*/
+
         }
 
         Glide.with(context).load(currentItem.getIcon()).into(iconImg);
