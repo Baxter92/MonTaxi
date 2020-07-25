@@ -86,12 +86,14 @@
                        android:layout_gravity="center_horizontal" />
                 </LinearLayout>
 
-
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".9">
                     <EditText
                         android:id="@+id/pwd"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight=".9"
+                        android:layout_height="wrap_content"
                         android:hint="@string/new_pwd"
                         android:inputType="textPassword"
                         android:textSize="15sp"
@@ -101,13 +103,15 @@
                         android:drawableLeft="@drawable/lock_3"
                         android:drawableRight="@drawable/circle_grey_2"
                         android:singleLine="true" />
-
-
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight=".9">
                     <EditText
                         android:id="@+id/pwd2"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight=".9"
+                        android:layout_height="wrap_content"
                         android:hint="@string/c_new_pwd"
                         android:inputType="textPassword"
                         android:textSize="15sp"
@@ -117,7 +121,7 @@
                         android:drawableLeft="@drawable/lock_3"
                         android:drawableRight="@drawable/circle_grey_2"
                         android:singleLine="true" />
-
+                </com.google.android.material.textfield.TextInputLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:orientation="horizontal"

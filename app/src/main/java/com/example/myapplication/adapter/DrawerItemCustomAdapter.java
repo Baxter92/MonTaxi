@@ -28,10 +28,14 @@ public class DrawerItemCustomAdapter extends BaseAdapter {
     private Context context;
     private List<DrawerModel> dataList;
     DrawerItemClick drawerItemClick;
+    private int mSelectedItem;
+    private boolean isHomeIcon;
+
     public DrawerItemCustomAdapter(@NonNull Context context, List<DrawerModel> dataList, DrawerItemClick drawerItemClick) {
         this.dataList = dataList;
         this.context = context;
         this.drawerItemClick = drawerItemClick;
+        this.isHomeIcon = false;
     }
 
     @Override
@@ -77,21 +81,21 @@ public class DrawerItemCustomAdapter extends BaseAdapter {
             //container.setBackgroundColor(context.getResources().getColor(R.color.drawer_color));
         }else {
             title.setText("");
-            /*if (i == 0 ){
-                iconImg.setColorFilter(context.getResources().getColor(R.color.black));
-                container.setBackgroundColor(context.getResources().getColor(R.color.taxiapp));
-            }*/
-
         }
 
         Glide.with(context).load(currentItem.getIcon()).into(iconImg);
         container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mSelectedItem = i;
+                isHomeIcon = false;
                 drawerItemClick.clicked(i);
             }
         });
         return convertView;
     }
 
+    public void setHomeIcon(){
+        isHomeIcon = true ;
+    }
 }

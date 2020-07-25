@@ -29,6 +29,7 @@
     <string name="sent_comment">Commentaire envoyé !</string>
     <string name="got_it">Ok, compris!</string>
     <string name="cancel"><u>Annuler</u></string>
+    <string name="try_again">Recommencer</string>
     <string name="sign_required">Tous les champs sont obligatoires</string>
     <string name="password_similar">Les mots de passes doivent être identique</string>
     <string name="update_password">Mis à jour Mot de passe</string>
@@ -53,6 +54,8 @@
     <string name="nav_history">Historique</string>
     <string name="nav_contact">Contactez nous</string>
     <string name="nav_logout">Deconnexion</string>
+    <string name="first_name">Prénom </string>
+    <string name="last_name">Nom </string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

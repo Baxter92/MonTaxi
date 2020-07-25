@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
     private EditText numberEdt;
     private EditText passwordEdt;
     private Button gotIt;
-    private ImageView menuIcon;
+    private RelativeLayout menuIcon;
 
     private ActionBar actionBar;
     private Toolbar toolbar;
@@ -80,26 +80,29 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
         sessionDriver = new SessionDriver(this);
         drawerModelList = new ArrayList<>();
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
-        menuIcon = (ImageView)findViewById(R.id.menu);
+        menuIcon = (RelativeLayout)findViewById(R.id.menu);
 
         adapter = new DrawerItemCustomAdapter(this,drawerModelList, this);
         mDrawerList.setAdapter(adapter);
 
+        mDrawerList.setItemChecked(0, true);
+        mDrawerList.setSelection(0);
            menuIcon();
+
         menuIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (drawerModelList.get(0).isOnlyIcon()) {
                     menu();
                 }else {
-                    menuIcon();
+                    menuIcon2();
                 }
             }
         });
     }
 
     private void menuIcon() {
-        mDrawerList.getLayoutParams().width = 70;
+        mDrawerList.getLayoutParams().width = 90;
         drawerModelList.clear();
         drawerModelList.add(new DrawerModel(true,R.drawable.ic_home_2,getString(R.string.nav_home)));
         drawerModelList.add(new DrawerModel(true,R.drawable.ic_taxi_2,getString(R.string.nav_taxi)));
@@ -114,18 +117,31 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
         adapter.notifyDataSetChanged();
     }
 
+    private void menuIcon2() {
+        mDrawerList.getLayoutParams().width = 90;
+        drawerModelList.set(0,new DrawerModel(true,R.drawable.ic_home_2,getString(R.string.nav_home)));
+        drawerModelList.set(1,new DrawerModel(true,R.drawable.ic_taxi_2,getString(R.string.nav_taxi)));
+        drawerModelList.set(2,new DrawerModel(true,R.drawable.ic_profile_2,getString(R.string.nav_profil)));
+        drawerModelList.set(3,new DrawerModel(true,R.drawable.ic_request_2,getString(R.string.nav_request)));
+        drawerModelList.set(4,new DrawerModel(true,R.drawable.ic_request_accepted_2,getString(R.string.nav_request_true)));
+        drawerModelList.set(5,new DrawerModel(true,R.drawable.ic_wallet_2,getString(R.string.nav_wallet)));
+        drawerModelList.set(6,new DrawerModel(true,R.drawable.ic_history_2,getString(R.string.nav_history)));
+        drawerModelList.set(7,new DrawerModel(true,R.drawable.ic_contact_2,getString(R.string.nav_contact)));
+        drawerModelList.set(8,new DrawerModel(true,R.drawable.ic_log_out_2,getString(R.string.nav_logout)));
+
+        adapter.notifyDataSetChanged();
+    }
     private void menu() {
-        mDrawerList.getLayoutParams().width = 200;
-        drawerModelList.clear();
-        drawerModelList.add(new DrawerModel(false,R.drawable.ic_home_2,getString(R.string.nav_home)));
-        drawerModelList.add(new DrawerModel(false,R.drawable.ic_taxi_2,getString(R.string.nav_taxi)));
-        drawerModelList.add(new DrawerModel(false,R.drawable.ic_profile_2,getString(R.string.nav_profil)));
-        drawerModelList.add(new DrawerModel(false,R.drawable.ic_request_2,getString(R.string.nav_request)));
-        drawerModelList.add(new DrawerModel(false,R.drawable.ic_request_accepted_2,getString(R.string.nav_request_true)));
-        drawerModelList.add(new DrawerModel(false,R.drawable.ic_wallet_2,getString(R.string.nav_wallet)));
-        drawerModelList.add(new DrawerModel(false,R.drawable.ic_history_2,getString(R.string.nav_history)));
-        drawerModelList.add(new DrawerModel(false,R.drawable.ic_contact_2,getString(R.string.nav_contact)));
-        drawerModelList.add(new DrawerModel(false,R.drawable.ic_log_out_2,getString(R.string.nav_logout)));
+        mDrawerList.getLayoutParams().width = 300;
+        drawerModelList.set(0,new DrawerModel(false,R.drawable.ic_home_2,getString(R.string.nav_home)));
+        drawerModelList.set(1,new DrawerModel(false,R.drawable.ic_taxi_2,getString(R.string.nav_taxi)));
+        drawerModelList.set(2,new DrawerModel(false,R.drawable.ic_profile_2,getString(R.string.nav_profil)));
+        drawerModelList.set(3,new DrawerModel(false,R.drawable.ic_request_2,getString(R.string.nav_request)));
+        drawerModelList.set(4,new DrawerModel(false,R.drawable.ic_request_accepted_2,getString(R.string.nav_request_true)));
+        drawerModelList.set(5,new DrawerModel(false,R.drawable.ic_wallet_2,getString(R.string.nav_wallet)));
+        drawerModelList.set(6,new DrawerModel(false,R.drawable.ic_history_2,getString(R.string.nav_history)));
+        drawerModelList.set(7,new DrawerModel(false,R.drawable.ic_contact_2,getString(R.string.nav_contact)));
+        drawerModelList.set(8,new DrawerModel(false,R.drawable.ic_log_out_2,getString(R.string.nav_logout)));
 
         adapter.notifyDataSetChanged();
     }
@@ -193,8 +209,8 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width =210;
-        lp.height = 210;
+        lp.width =310;
+        lp.height = 310;
        // lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
         //lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
 
@@ -222,6 +238,9 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
 
     @Override
     public void clicked(int position) {
+        mDrawerList.setItemChecked(position, true);
+        mDrawerList.setSelection(position);
+        //mDrawerList.getChildAt(position).setBackgroundColor(getResources().getColor(R.color.taxiapp));
         if (position == drawerModelList.size()-1){
             Alert();
         }

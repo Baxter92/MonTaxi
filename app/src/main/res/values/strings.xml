@@ -30,6 +30,7 @@
     <string name="sent_comment">Comment sent !</string>
     <string name="got_it">Ok, got it !</string>
     <string name="cancel"><u>Cancel</u></string>
+    <string name="try_again">Try again</string>
     <string name="sign_required">All field is Required</string>
     <string name="password_similar">Password must be same</string>
     <string name="update_password">Update password</string>
@@ -54,6 +55,8 @@
     <string name="nav_history">History</string>
     <string name="nav_contact">Contact Us</string>
     <string name="nav_logout">Log Out</string>
+    <string name="first_name">First Name </string>
+    <string name="last_name">Last Name </string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

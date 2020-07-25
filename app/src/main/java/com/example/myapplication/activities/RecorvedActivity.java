@@ -113,7 +113,7 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
     @Override
     public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
       //  Config.hideDialog();
-        hideProgressDialog();
+        Config.hideProgressDialog(progressBar);
         if (flag) {
             try {
                 JSONObject FlagJson = jsonArray.getJSONObject(0);
@@ -153,7 +153,7 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
     @Override
     public void geterrorVolley(Context context, String error) {
         if (error == null)
-            hideProgressDialog();
+            Config.hideProgressDialog(progressBar);
     }
 
     private void setCountryFlag(String flagpath, String code) {
@@ -194,7 +194,7 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
 
     private void verifyPhone() {
         //Config.showDialog(getString(R.string.verify));
-        showProgressDialog();
+        Config.showProgressDialog(progressBar);
         List<String> paths = new ArrayList<>();
         paths.add("phone_validation");
         paths.add("requestcode");

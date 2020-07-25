@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -65,6 +66,7 @@ public class RecorvedChatActivity extends AppCompatActivity implements networksJ
             @Override
             public void onClick(View view) {
                 //Alert(getString(R.string.comment_sent),false);
+                //phone = "237695797443";
                 if (phone.substring(3).equals(phoneEdt.getText().toString()))
                     sendChatComment(phoneEdt.getText().toString(),commentEdt.getText().toString());
                 else {
@@ -81,39 +83,56 @@ public class RecorvedChatActivity extends AppCompatActivity implements networksJ
         View contentView = getLayoutInflater().inflate(R.layout.comment_dialog,null);
         dialog.setContentView(contentView);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width =310;
+        lp.height = 310;
         dialog.setCancelable(true);
-        RelativeLayout exitText = (RelativeLayout) contentView.findViewById(R.id.exit);
+        Button exitText = (Button) contentView.findViewById(R.id.exit);
         TextView comment = (TextView)contentView.findViewById(R.id.comment);
         TextView cancel = (TextView)contentView.findViewById(R.id.cancel);
         ImageView ivEmoji = (ImageView)contentView.findViewById(R.id.emoji);
         if (error) {
             comment.setTextColor(getResources().getColor(R.color.commentnotsent));
+            comment.setText(getString(R.string.comment_notsent));
             Glide.with(RecorvedChatActivity.this).load(R.drawable.sad_emoji).into(ivEmoji);
             cancel.setVisibility(View.VISIBLE);
+            exitText.setText(getString(R.string.try_again));
+            exitText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Config.hideProgressDialog(progressBar);
+                    dialog.dismiss();
+                }
+            });
         }
         else {
             comment.setTextColor(getResources().getColor(R.color.commentsent));
+            comment.setText(getString(R.string.comment_sent));
             Glide.with(RecorvedChatActivity.this).load(R.drawable.laugh_icon).into(ivEmoji);
             cancel.setVisibility(View.GONE);
+            exitText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(RecorvedChatActivity.this, SignInActivity.class));
+                    finish();
+                }
+            });
         }
 
         comment.setText(message);
 
-        exitText.setOnClickListener(new View.OnClickListener() {
+
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(RecorvedChatActivity.this, SignInActivity.class));
                 finish();
             }
         });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Config.hideProgressDialog(progressBar);
-            }
-        });
 
         dialog.show();
+        dialog.getWindow().setAttributes(lp);
     }
 
     @Override
@@ -125,8 +144,7 @@ public class RecorvedChatActivity extends AppCompatActivity implements networksJ
     }
 
     private void sendChatComment(String phone, String comment){
-        Config.ProgressDialog(RecorvedChatActivity.this);
-        Config.showDialog("");
+        Config.showProgressDialog(progressBar);
         Map<String, String> params = new HashMap<>();
         params.put("phone",phone);
         params.put("message",comment);
