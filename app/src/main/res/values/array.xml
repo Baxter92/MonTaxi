@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="town">
+        <item>Selected</item>
+        <item>Baffoussam</item>
+        <item>Douala</item>
+        <item>Yaoundé</item>
+    </array>
+</resources>

@@ -21,4 +21,6 @@
     <color name="grey_40">#999999</color>
     <color name="grey_60">#666666</color>
     <color name="grey_50">#808080</color>
+    <color name="bottom_card">#efefef</color>
+    <color name="bottom_card_shadow">#29000000</color>
 </resources>

@@ -5,32 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-
     <LinearLayout
+        android:id="@+id/container_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/container_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar" />
-        </LinearLayout>
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+    </LinearLayout>
 
 
         <FrameLayout
             android:id="@+id/content_frame"
+            android:layout_below="@+id/container_toolbar"
+            android:layout_toRightOf="@+id/left_drawer"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </LinearLayout>
     <!--bottom sheet container-->
-    <include layout="@layout/bottom_map" />
+    <!--include layout="@layout/bottom_map" /-->
     <ListView
         android:id="@+id/left_drawer"
         android:layout_width="@dimen/card_signin"
@@ -40,8 +35,7 @@
         android:background="@color/drawer_color"
         android:choiceMode="singleChoice"
         android:divider="@android:color/darker_gray"
-        android:dividerHeight="0dp"
-        android:listSelector="@drawable/list_selector"/>
+        android:dividerHeight="0dp"/>
 
 
 </RelativeLayout>

@@ -74,6 +74,11 @@ public class DrawerItemCustomAdapter extends BaseAdapter {
         ImageView iconImg = (ImageView)
                 convertView.findViewById(R.id.imageViewIcon);
 
+        if (i==0 || i==getCount()-1) {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.taxiapp));
+            iconImg.setColorFilter(context.getResources().getColor(R.color.black));
+            title.setTextColor(context.getResources().getColor(R.color.black));
+        }
         //sets the text for item name and item description from the current item object
         if (!currentItem.isOnlyIcon()) {
             title.setText(currentItem.getName());

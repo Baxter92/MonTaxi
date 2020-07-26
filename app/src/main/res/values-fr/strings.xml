@@ -56,6 +56,14 @@
     <string name="nav_logout">Deconnexion</string>
     <string name="first_name">Prénom </string>
     <string name="last_name">Nom </string>
+    <string name="phone">Numéro </string>
+    <string name="password">Mot de Passe</string>
+    <string name="zone_work">Zone of work</string>
+    <string name="old_password">Ancien mot de passe</string>
+    <string name="new_password">Nouveau mot de passe</string>
+    <string name="conf_password">Confirmer mot de passe</string>
+    <string name="nomatch_password">Mot de passe non valide</string>
+    <string name="upload_text"><b>Salut Manga,</b> veuillez télécharger une photo de profil </string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

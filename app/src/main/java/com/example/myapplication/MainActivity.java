@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.myapplication.Fragment.EditProfilFragment;
+import com.example.myapplication.Fragment.HomeFragment;
 import com.example.myapplication.Interface.DrawerItemClick;
 import com.example.myapplication.Models.Config;
 import com.example.myapplication.Models.Utils.DrawerModel;
@@ -243,6 +248,18 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
         //mDrawerList.getChildAt(position).setBackgroundColor(getResources().getColor(R.color.taxiapp));
         if (position == drawerModelList.size()-1){
             Alert();
+        }else if (position == 2){
+            replaceFragment(EditProfilFragment.newInstance(),Config.EditProfil);
+        }else {
+            replaceFragment(HomeFragment.newInstance(),Config.Home);
         }
+    }
+
+    private void replaceFragment(Fragment newFragment, String tag) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, newFragment, tag);
+        ft.addToBackStack(null);
+        ft.commit();
+
     }
 }

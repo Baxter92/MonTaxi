@@ -8,7 +8,7 @@
     android:id="@+id/card"
     android:layout_marginTop="@dimen/spacing_medium"
     android:layout_width="@dimen/card_xsignin"
-    android:layout_height="@dimen/card_signin2"
+    android:layout_height="@dimen/card_signin"
     android:layout_marginLeft="@dimen/spacing_xxxlarge"
     app:cardCornerRadius="15dp"
     app:cardElevation="14dp"
@@ -18,146 +18,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".8"
-            android:padding="@dimen/spacing_large">
-
-            <RelativeLayout
-                android:layout_width="@dimen/spacing_xxxlarge"
-                android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/iv_"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_xxxlarge"
-                android:src="@drawable/groupe_1736"
-                />
-            <ImageView
-                android:id="@+id/upload"
-                android:layout_width="@dimen/spacing_xllarge"
-                android:layout_height="@dimen/spacing_xllarge"
-                android:src="@drawable/groupe_1720"
-                android:layout_below="@+id/iv_"
-                android:layout_centerHorizontal="true"/>
-            </RelativeLayout>
-        </RelativeLayout>
+        android:orientation="vertical"
+        android:weightSum="3">
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1.2"
-            android:orientation="vertical"
-            android:padding="@dimen/spacing_large">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_medium">
-
-                    <EditText
-                        android:id="@+id/firstname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/first_name"
-                        android:inputType="text"
-                        android:textSize="13sp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black"
-                        android:drawablePadding="@dimen/spacing_middle"
-                        android:drawableLeft="@drawable/groupe_881"
-                        android:drawableRight="@drawable/edit_button_1"
-                        android:maxLines="1"
-                        android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_medium">
-
-                    <EditText
-                        android:id="@+id/lastname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/last_name"
-                        android:inputType="text"
-                        android:textSize="13sp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black"
-                        android:drawablePadding="@dimen/spacing_middle"
-                        android:drawableLeft="@drawable/groupe_881"
-                        android:drawableRight="@drawable/edit_button_1"
-                        android:maxLines="1"
-                        android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_medium">
-
-                    <EditText
-                        android:id="@+id/number"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/phone"
-                        android:inputType="text"
-                        android:textSize="13sp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/black"
-                        android:drawablePadding="@dimen/spacing_middle"
-                        android:drawableLeft="@drawable/groupe_882"
-                        android:drawableRight="@drawable/edit_button_1"
-                        android:maxLines="1"
-                        android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_medium">
-
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:textSize="13sp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/black"
-                    android:drawablePadding="@dimen/spacing_middle"
-                    android:drawableLeft="@drawable/groupe_1387"
-                    android:drawableRight="@drawable/composant_76_2"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/spacing_medium">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/groupe_1522"/>
-                <Spinner
-                    android:id="@+id/spinner2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:spinnerMode="dropdown"
-                    android:textSize="13sp"
-                    android:entries="@array/town"/>
-            </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center_horizontal"
+            android:layout_weight=".7">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            android:lineSpacingExtra="1.7sp"
+            android:text="@string/upload_text"
+            />
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.3">
+            <ImageView
+                android:layout_width="@dimen/spacing_xslarge"
+                android:layout_height="@dimen/spacing_xslarge"
+                android:layout_centerInParent="true"
+                android:src="@drawable/groupe_1426"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spacing_xslarge"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/groupe_1427"/>
+        </RelativeLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
 
     <LinearLayout
+        android:visibility="gone"
         android:layout_below="@+id/card"
         android:layout_width="@dimen/card_xsignin"
         android:layout_height="wrap_content"

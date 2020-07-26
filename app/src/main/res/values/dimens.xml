@@ -16,13 +16,16 @@
     <dimen name="spacing_iv">100dp</dimen>
     <dimen name="spacing_title">105dp</dimen>
     <dimen name="spacing_title1">120dp</dimen>
+    <dimen name="spacing_title2">140dp</dimen>
 
     <dimen name="stepper_title">20sp</dimen>
     <dimen name="linear_stepper">25dp</dimen>
 
     <dimen name="arrow_stepper">55dp</dimen>
     <dimen name="view_1">200dp</dimen>
+    <dimen name="view_2">250dp</dimen>
     <dimen name="card_signin">300dp</dimen>
+    <dimen name="card_signin2">350dp</dimen>
     <dimen name="card_xsignin">400dp</dimen>
     <dimen name="card_in_signin">220dp</dimen>
     <dimen name="card_in_xsignin">360dp</dimen>

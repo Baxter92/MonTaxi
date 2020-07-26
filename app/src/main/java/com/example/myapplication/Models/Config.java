@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 
 public class Config {
+    public static final String Home = "home";
+    public static final String EditProfil = "editprofil";
     public static final String TAG1 = "volley_response";
     public static final String TAG2 = "volley_response_json";
     public static final String TAG3 = "firestore_response";
