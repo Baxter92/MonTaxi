@@ -29,6 +29,7 @@ import com.example.myapplication.MainActivity;
 import com.example.myapplication.Models.Config;
 import com.example.myapplication.Models.Country;
 import com.example.myapplication.Models.Driver;
+import com.example.myapplication.Models.Profil;
 import com.example.myapplication.Models.SignIn;
 import com.example.myapplication.Models.Utils.SessionDriver;
 import com.example.myapplication.R;
@@ -264,7 +265,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 Config.Alert(SignInActivity.this,errorJson.getString("message"),false);
             }else {
                 Driver driver = new Driver(jsonObject.getString("id"), jsonObject.getLong("ttl"), jsonObject.getString("created"),
-                        jsonObject.getInt("userId"), jsonObject.getBoolean("signedup"),country);
+                        numberEdt.getText().toString(),
+                        jsonObject.getInt("userId"), jsonObject.getBoolean("signedup"),country,
+                        new Profil("","",passwordEdt.getText().toString(),"",""));
 
                 if (driver.isSignedup()) {
                     //Store Driver In SharedPreference

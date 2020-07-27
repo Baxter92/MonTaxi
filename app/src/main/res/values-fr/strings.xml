@@ -29,6 +29,7 @@
     <string name="sent_comment">Commentaire envoyé !</string>
     <string name="got_it">Ok, compris!</string>
     <string name="cancel"><u>Annuler</u></string>
+    <string name="cancel2">Annuler</string>
     <string name="try_again">Recommencer</string>
     <string name="sign_required">Tous les champs sont obligatoires</string>
     <string name="password_similar">Les mots de passes doivent être identique</string>
@@ -63,7 +64,9 @@
     <string name="new_password">Nouveau mot de passe</string>
     <string name="conf_password">Confirmer mot de passe</string>
     <string name="nomatch_password">Mot de passe non valide</string>
-    <string name="upload_text"><b>Salut Manga,</b> veuillez télécharger une photo de profil </string>
+    <string name="upload_text"><b>Salut %1$s,</b> veuillez télécharger une photo de profil </string>
+    <string name="update_done">Bien ! Mot de passe mis à jour</string>
+    <string name="delete_camera_label">Votre profil actuel\nla photo sera supprimée</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

@@ -24,6 +24,7 @@ public class Config {
     public static final String changePassword = "http://api-dev.montaxii.com/api/v1/drivers/change-password";
     public static final String recoveraccount = "http://api-dev.montaxii.com/api/v1/drivers/recover-account";
     public static final String chatcomment = "http://api-dev.montaxii.com/api/v1/comments";
+    public static final String resetPassword = "http://api-dev.montaxii.com/api/v1/drivers/reset-password";
 
     public static void Alert(Context context, String message, boolean success){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

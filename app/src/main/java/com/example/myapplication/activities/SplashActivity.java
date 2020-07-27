@@ -29,9 +29,10 @@ public class SplashActivity extends AppCompatActivity {
                 if (sessionDriver.getDriver()!=null){
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     finish();
+                }else {
+                    startActivity(new Intent(SplashActivity.this, SteppersActivity.class));
+                    finish();
                 }
-                startActivity(new Intent(SplashActivity.this, SteppersActivity.class));
-                finish();
             }
         }, 3000);
 

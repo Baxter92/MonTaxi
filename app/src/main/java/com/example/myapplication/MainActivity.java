@@ -10,8 +10,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -35,23 +37,35 @@ import com.bumptech.glide.Glide;
 import com.example.myapplication.Fragment.EditProfilFragment;
 import com.example.myapplication.Fragment.HomeFragment;
 import com.example.myapplication.Interface.DrawerItemClick;
+import com.example.myapplication.Interface.networksJO;
 import com.example.myapplication.Models.Config;
+import com.example.myapplication.Models.Town;
 import com.example.myapplication.Models.Utils.DrawerModel;
+import com.example.myapplication.Models.Utils.EventTown;
 import com.example.myapplication.Models.Utils.SessionDriver;
+import com.example.myapplication.Service.Networks;
 import com.example.myapplication.activities.RecorvedChatActivity;
 import com.example.myapplication.activities.SignInActivity;
 import com.example.myapplication.adapter.DrawerItemCustomAdapter;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements DrawerItemClick {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class MainActivity extends AppCompatActivity implements DrawerItemClick, networksJO {
 
     private EditText countryEdt;
     private EditText numberEdt;
     private EditText passwordEdt;
     private Button gotIt;
+    private ImageView imageIcon;
     private RelativeLayout menuIcon;
 
     private ActionBar actionBar;
@@ -72,7 +86,19 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
         initMenu();
     }
 
-    private void initToolbar() {
+    public void setIconToolbar(Uri uri, int drawable){
+        if (drawable ==-1) {
+            Glide.with(this)
+                    .load(uri)
+                    .into(imageIcon);
+        }else {
+            Glide.with(this)
+                    .load(drawable)
+                    .into(imageIcon);
+        }
+    }
+
+    public void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
@@ -86,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
         drawerModelList = new ArrayList<>();
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         menuIcon = (RelativeLayout)findViewById(R.id.menu);
+        imageIcon = (ImageView)findViewById(R.id.icon);
 
         adapter = new DrawerItemCustomAdapter(this,drawerModelList, this);
         mDrawerList.setAdapter(adapter);
@@ -260,6 +287,56 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick {
         ft.replace(R.id.content_frame, newFragment, tag);
         ft.addToBackStack(null);
         ft.commit();
+
+    }
+
+    private void getTownFromCountry() {
+        Map<String, Map<String, String>> whereParam = new HashMap<>();
+        Map<String, String> flagParam = new HashMap<>();
+        flagParam.put("country_code", Config.cameroonFlag);
+        whereParam.put("where",flagParam);
+
+        JSONObject flagObject = new JSONObject(whereParam);
+        String filterJson = flagObject.toString();
+
+        List<String> countrieList = new ArrayList<>();
+        countrieList.add("towns");
+        Map<String, String> filter = new HashMap<>();
+        filter.put("filter",filterJson);
+        Networks networks = new Networks(MainActivity.this,this);
+        networks.getvolley(networks.EncodeUrl(countrieList,filter));
+
+    }
+
+    @Override
+    public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
+        try {
+            List<Town> townList = new ArrayList<>();
+            int country_id = jsonObject.getInt("country_id");
+            if (country_id == 1) {
+                Town town = new Town(jsonObject.getInt("id"), jsonObject.getJSONObject("name").getString("fr"),
+                        jsonObject.getJSONObject("location").getLong("lng"), jsonObject.getJSONObject("location").getLong("lat"));
+                townList.add(town);
+            }
+            EventBus.getDefault().postSticky(new EventTown(country_id,townList));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().removeAllStickyEvents();
+        super.onStop();
+    }
+
+    @Override
+    public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
+
+    }
+
+    @Override
+    public void geterrorVolley(Context context, String error) {
 
     }
 }
