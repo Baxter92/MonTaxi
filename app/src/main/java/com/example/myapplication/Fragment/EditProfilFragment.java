@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,7 +39,7 @@ import java.util.List;
 public class EditProfilFragment extends Fragment {
 
     private EditText passEdt;
-    private ImageView imageUpload;
+    private Button imageUpload;
     private LinearLayout ll_btn;
     SessionDriver sessionDriver;
     private EditText first_nameEdt, last_nameEdt, phone_Edt;
@@ -61,7 +62,7 @@ public class EditProfilFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sessionDriver = new SessionDriver(getActivity());
-        towns = new String[]{};
+        towns = new String[0];
     }
 
     @Override
@@ -99,7 +100,7 @@ public class EditProfilFragment extends Fragment {
        // first_nameEdt.setEnabled(false);
         //last_nameEdt.setEnabled(false);
         //passEdt.setEnabled(false);
-        ll_btn.setVisibility(View.GONE);
+        //ll_btn.setVisibility(View.GONE);
 
         EditProfil();
     }
@@ -127,7 +128,7 @@ public class EditProfilFragment extends Fragment {
     }
     private void init(View view) {
         passEdt = (EditText)view.findViewById(R.id.password);
-        imageUpload = (ImageView)view.findViewById(R.id.upload);
+        imageUpload = (Button) view.findViewById(R.id.upload);
         first_nameEdt = (EditText)view.findViewById(R.id.firstname);
         last_nameEdt = (EditText)view.findViewById(R.id.lastname);
         phone_Edt = (EditText)view.findViewById(R.id.number);
@@ -194,9 +195,10 @@ public class EditProfilFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void getTownList(EventTown eventTown){
-        towns = new String[]{};
+        towns = new String[eventTown.getTowns().size()];
         for (int i =0 ; i<eventTown.getTowns().size();i++){
             towns[i] = eventTown.getTowns().get(i).getName();
+            Log.d("townvalue","bus after "+eventTown.getTowns().get(i).getName());
         }
         adapter.notifyDataSetChanged();
     }

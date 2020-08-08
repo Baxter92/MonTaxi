@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -131,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick, 
                 }
             }
         });
+        getTownFromCountry();
     }
 
     private void menuIcon() {
@@ -164,7 +166,8 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick, 
         adapter.notifyDataSetChanged();
     }
     private void menu() {
-        mDrawerList.getLayoutParams().width = 300;
+
+        mDrawerList.getLayoutParams().width = 400;
         drawerModelList.set(0,new DrawerModel(false,R.drawable.ic_home_2,getString(R.string.nav_home)));
         drawerModelList.set(1,new DrawerModel(false,R.drawable.ic_taxi_2,getString(R.string.nav_taxi)));
         drawerModelList.set(2,new DrawerModel(false,R.drawable.ic_profile_2,getString(R.string.nav_profil)));
@@ -309,16 +312,20 @@ public class MainActivity extends AppCompatActivity implements DrawerItemClick, 
     }
 
     @Override
-    public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
+    public void getVolleyJson(Context context, JSONObject jsonObject1, JSONArray jsonArray, int code) {
         try {
             List<Town> townList = new ArrayList<>();
-            int country_id = jsonObject.getInt("country_id");
-            if (country_id == 1) {
-                Town town = new Town(jsonObject.getInt("id"), jsonObject.getJSONObject("name").getString("fr"),
-                        jsonObject.getJSONObject("location").getLong("lng"), jsonObject.getJSONObject("location").getLong("lat"));
-                townList.add(town);
+            for (int i=0; i<jsonArray.length();i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                int country_id = jsonObject.getInt("country_id");
+                if (country_id == 1) {
+                    Town town = new Town(jsonObject.getInt("id"), jsonObject.getJSONObject("name").getString("fr"),
+                            jsonObject.getJSONObject("location").getLong("lng"), jsonObject.getJSONObject("location").getLong("lat"));
+                    townList.add(town);
+                    Log.d("townvalue", jsonObject.getJSONObject("name").getString("fr"));
+                }
             }
-            EventBus.getDefault().postSticky(new EventTown(country_id,townList));
+            EventBus.getDefault().postSticky(new EventTown(1,townList));
         } catch (JSONException e) {
             e.printStackTrace();
         }

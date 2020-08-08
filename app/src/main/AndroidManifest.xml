@@ -24,17 +24,14 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".activities.RecorvedChatActivity"
+            android:name=".activities.RecorvedTreeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.RecorvedNewPassword"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".activities.RecorvedTreeActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".activities.RecorvedActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -49,6 +46,10 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".activities.RecorvedTwoActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activities.RecorvedChatActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="landscape" />
         <activity

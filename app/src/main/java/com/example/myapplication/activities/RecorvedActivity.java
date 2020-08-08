@@ -113,7 +113,7 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
     @Override
     public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
       //  Config.hideDialog();
-        Config.hideProgressDialog(progressBar);
+        hideProgressDialog();
         if (flag) {
             try {
                 JSONObject FlagJson = jsonArray.getJSONObject(0);
@@ -194,7 +194,8 @@ public class RecorvedActivity extends AppCompatActivity implements networksJO {
 
     private void verifyPhone() {
         //Config.showDialog(getString(R.string.verify));
-        Config.showProgressDialog(progressBar);
+       // Config.showProgressDialog(progressBar);
+        showProgressDialog();
         List<String> paths = new ArrayList<>();
         paths.add("phone_validation");
         paths.add("requestcode");

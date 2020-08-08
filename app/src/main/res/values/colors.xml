@@ -23,4 +23,5 @@
     <color name="grey_50">#808080</color>
     <color name="bottom_card">#efefef</color>
     <color name="bottom_card_shadow">#29000000</color>
+    <color name="colorSelector">#F3FFEB3B</color>
 </resources>

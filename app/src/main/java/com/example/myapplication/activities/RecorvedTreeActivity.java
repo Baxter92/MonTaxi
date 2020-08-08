@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -32,7 +33,7 @@ import java.util.Map;
 
 public class RecorvedTreeActivity extends AppCompatActivity implements View.OnClickListener , networksJO {
 
-    private static final long START_TIME_IN_MILLIS = 60000;
+    private static final long START_TIME_IN_MILLIS = 40000;
 
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private TextView mTextViewCountDown;
@@ -42,7 +43,7 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
 
     private EditText Edt1, Edt2, Edt3, Edt4;
     private Button confirmBtn, chatBtn;
-
+    ProgressBar progressBar;
     String phone, pincode;
     boolean error;
     @Override
@@ -58,6 +59,7 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
     private void init() {
         phone = getIntent().getStringExtra("phone");
         error = getIntent().getBooleanExtra("error",false);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
         mTextViewReceivesms = findViewById(R.id.receivesms);
         mTextViewCountDown = (TextView)findViewById(R.id.countdown);
         mTextViewReceivesms.setText(getString(R.string.recorver_two,phone.substring(phone.length()-2)));
@@ -87,8 +89,8 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
             if (!Edt1.getText().toString().isEmpty()&&!Edt2.getText().toString().isEmpty()
             &&!Edt3.getText().toString().isEmpty()&&!Edt4.getText().toString().isEmpty()) {
                 pincode = Edt1.getText().toString()+Edt2.getText().toString()+Edt3.getText().toString()+Edt4.getText().toString();
-                //sendCode(phone,pincode);
-                switch2Page();
+                sendCode(phone,pincode);
+                //switch2Page();
             }
         }else if (view.getId() == R.id.chat_btn){
             Intent intent = new Intent(RecorvedTreeActivity.this, RecorvedChatActivity.class);
@@ -106,8 +108,7 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
         finish();
     }
     private void sendCode(String phone, String pincode){
-        Config.ProgressDialog(RecorvedTreeActivity.this);
-        Config.showDialog("");
+       showProgressDialog();
         List<String> paths = new ArrayList<>();
         paths.add("phone_validation");
         paths.add("verifycode");
@@ -142,15 +143,19 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
-        Config.hideDialog();
+        hideProgressDialog();
         try {
             if (jsonObject.getString("result").equals("success")){
-                Intent intent = new Intent(RecorvedTreeActivity.this, RecorvedNewPassword.class);
+                /*Intent intent = new Intent(RecorvedTreeActivity.this, RecorvedNewPassword.class);
                 intent.putExtra("phone",phone);
                 intent.putExtra("code",pincode);
                 startActivity(intent);
-                finish();
+                finish();*/
+                switch2Page();
             }else {
+               /* mTextViewerrormsg.setText(getString(R.string.invalid_code_label));
+                mTextViewerrormsg.setTextColor(Color.RED);*/
+                mTextViewCountDown.setText("--:--");
                 mTextViewerrormsg.setText(getString(R.string.invalid_code_label));
                 mTextViewerrormsg.setTextColor(Color.RED);
             }
@@ -167,51 +172,88 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void geterrorVolley(Context context, String error) {
         if (error == null) {
-            Config.hideDialog();
+            hideProgressDialog();
             mTextViewerrormsg.setText(getString(R.string.invalid_code_label));
             mTextViewerrormsg.setTextColor(Color.RED);
         }
     }
 
     private void setEditOneTimes(){
-        final StringBuilder sb=new StringBuilder();
-
         Edt1.addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // TODO Auto-generated method stub
-                if(sb.length()==0&Edt1.length()==1)
+                if(Edt1.length()==1)
                 {
-                    sb.append(s);
                     Edt1.clearFocus();
                     Edt2.requestFocus();
                     Edt2.setCursorVisible(true);
 
+                }else if (Edt1.length() ==0){
+                    Edt1.clearFocus();
                 }
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-                if(sb.length()==1)
-                {
-                    sb.deleteCharAt(0);
-                }
             }
 
             public void afterTextChanged(Editable s) {
-                if(sb.length()==0)
-                {
-                    Edt1.requestFocus();
-                }
             }
         });
 
         Edt2.addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // TODO Auto-generated method stub
-                if(sb.length()==0&Edt2.length()==1)
+                if(Edt2.length()==1)
                 {
-                    sb.append(s);
                     Edt2.clearFocus();
+                    Edt3.requestFocus();
+                    Edt3.setCursorVisible(true);
+
+                }else if (Edt2.length() == 0){
+                    Edt2.clearFocus();
+                    Edt1.requestFocus();
+                    Edt1.setCursorVisible(true);
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        Edt3.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO Auto-generated method stub
+                if(Edt3.length()==1)
+                {
+                    Edt3.clearFocus();
+                    Edt4.requestFocus();
+                    Edt4.setCursorVisible(true);
+
+                }else if (Edt3.length() == 0){
+                    Edt3.clearFocus();
+                    Edt2.requestFocus();
+                    Edt2.setCursorVisible(true);
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+            }
+
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        Edt4.addTextChangedListener(new TextWatcher() {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO Auto-generated method stub
+                if (Edt4.length() ==0){
+                    Edt4.clearFocus();
                     Edt3.requestFocus();
                     Edt3.setCursorVisible(true);
 
@@ -220,73 +262,18 @@ public class RecorvedTreeActivity extends AppCompatActivity implements View.OnCl
 
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-                if(sb.length()==1)
-                {
-                    sb.deleteCharAt(0);
-                }
             }
 
             public void afterTextChanged(Editable s) {
-                if(sb.length()==0)
-                {
-                    Edt2.requestFocus();
-                }
             }
         });
-
-        Edt3.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // TODO Auto-generated method stub
-                if(sb.length()==0&Edt3.length()==1)
-                {
-                    sb.append(s);
-                    Edt3.clearFocus();
-                    Edt4.requestFocus();
-                    Edt4.setCursorVisible(true);
-
-                }
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                if(sb.length()==1)
-                {
-                    sb.deleteCharAt(0);
-                }
-            }
-
-            public void afterTextChanged(Editable s) {
-                if(sb.length()==0)
-                {
-                    Edt3.requestFocus();
-                }
-            }
-        });
-
-        Edt4.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // TODO Auto-generated method stub
-                if(sb.length()==0&Edt4.length()==1)
-                {
-                    sb.append(s);
-                    Edt4.clearFocus();
-                }
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                if(sb.length()==1)
-                {
-                    sb.deleteCharAt(0);
-                }
-            }
-
-            public void afterTextChanged(Editable s) {
-                if(sb.length()==0)
-                {
-                    switch2Page();
-                }
-            }
-        });
+    }
+    private void showProgressDialog(){
+        progressBar.setVisibility(View.VISIBLE);
+        confirmBtn.setVisibility(View.GONE);
+    }
+    private void hideProgressDialog(){
+        progressBar.setVisibility(View.GONE);
+        confirmBtn.setVisibility(View.VISIBLE);
     }
 }

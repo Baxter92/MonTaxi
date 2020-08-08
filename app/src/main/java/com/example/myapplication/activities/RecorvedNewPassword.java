@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ public class RecorvedNewPassword extends AppCompatActivity implements networksJO
     private EditText confpasswEdt;
     private Button updateBtn;
     private TextView mTextViewReceivesms;
+    ProgressBar progressBar;
     int screensize;
     private String phone, pincode;
 
@@ -47,12 +49,12 @@ public class RecorvedNewPassword extends AppCompatActivity implements networksJO
     private void init() {
         phone = getIntent().getStringExtra("phone");
         pincode = getIntent().getStringExtra("code");
-
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
         passwEdt = findViewById(R.id.pwd1);
         confpasswEdt = findViewById(R.id.pwd2);
         mTextViewReceivesms = (TextView)findViewById(R.id.receivesms);
         mTextViewReceivesms.setText(getString(R.string.recorver_two,phone.substring(phone.length()-2)));
-        //mTextViewReceivesms.setText(getString(R.string.recorver_two,"43"));
+      //  mTextViewReceivesms.setText(getString(R.string.recorver_two,"43"));
         updateBtn = findViewById(R.id.update);
         updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,8 +70,9 @@ public class RecorvedNewPassword extends AppCompatActivity implements networksJO
     }
 
     private void recorver(String phone, String pincode, String password) {
-        Config.ProgressDialog(RecorvedNewPassword.this);
-        Config.showDialog("");
+        showProgressDialog();
+       // Config.showDialog("")
+         Log.d("jsondata","phone "+phone+" pincode "+pincode+" password "+password);
         Networks networks = new Networks(RecorvedNewPassword.this,this);
 
         Map<String,String> params = new HashMap<>();
@@ -154,7 +157,7 @@ public class RecorvedNewPassword extends AppCompatActivity implements networksJO
 
     @Override
     public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
-        Config.hideDialog();
+        hideProgressDialog();
         try {
             if (jsonObject.getString("result").equals("success")){
                 startActivity(new Intent(RecorvedNewPassword.this, MainActivity.class));
@@ -168,7 +171,15 @@ public class RecorvedNewPassword extends AppCompatActivity implements networksJO
     @Override
     public void geterrorVolley(Context context, String error) {
         if (error == null) {
-            Config.hideDialog();
+            hideProgressDialog();
         }
+    }
+    private void showProgressDialog(){
+        progressBar.setVisibility(View.VISIBLE);
+        updateBtn.setVisibility(View.GONE);
+    }
+    private void hideProgressDialog(){
+        progressBar.setVisibility(View.GONE);
+        updateBtn.setVisibility(View.VISIBLE);
     }
 }

@@ -144,7 +144,7 @@ public class RecorvedChatActivity extends AppCompatActivity implements networksJ
     }
 
     private void sendChatComment(String phone, String comment){
-        Config.showProgressDialog(progressBar);
+        showProgressDialog();
         Map<String, String> params = new HashMap<>();
         params.put("phone",phone);
         params.put("message",comment);
@@ -162,7 +162,7 @@ public class RecorvedChatActivity extends AppCompatActivity implements networksJ
 
     @Override
     public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
-        Config.hideDialog();
+       hideProgressDialog();
         if (jsonObject.has("id")){
             try {
                 ChatComment chatComment = new ChatComment(jsonObject.getInt("id"),jsonObject.getString("phone"),
@@ -181,10 +181,10 @@ public class RecorvedChatActivity extends AppCompatActivity implements networksJ
     @Override
     public void geterrorVolley(Context context, String error) {
             if (error == null){
-                Config.hideDialog();
+                hideProgressDialog();
                 Alert(getString(R.string.comment_notsent),true);
             }else {
-                Config.hideDialog();
+                hideProgressDialog();
                 Alert(getString(R.string.comment_notsent),true);
             }
     }
@@ -222,5 +222,14 @@ public class RecorvedChatActivity extends AppCompatActivity implements networksJ
 
             }
         });
+    }
+
+    private void showProgressDialog(){
+        progressBar.setVisibility(View.VISIBLE);
+        validBtn.setVisibility(View.GONE);
+    }
+    private void hideProgressDialog(){
+        progressBar.setVisibility(View.GONE);
+        validBtn.setVisibility(View.VISIBLE);
     }
 }

@@ -68,6 +68,8 @@
     <string name="upload_text"><b>Hi %1$s,</b> please upload a profile photo </string>
     <string name="update_done">Nice! Password updated</string>
     <string name="delete_camera_label">Your current profile\nphoto will be deleted</string>
+    <string name="cancel_1">Cancel</string>
+    <string name="update_1">Update</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

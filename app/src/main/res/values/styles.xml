@@ -24,6 +24,7 @@
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/custom_list_selector</item>
     </style>
 
     <style name="Drawer.Custom.Dark" parent="@style/ThemeOverlay.AppCompat.Light">

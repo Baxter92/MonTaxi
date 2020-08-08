@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/spacing_xlarge"
+    android:layout_height="@dimen/spacing_xxlarge"
     android:background="@color/taxiapp"
     app:contentInsetStartWithNavigation="0dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"

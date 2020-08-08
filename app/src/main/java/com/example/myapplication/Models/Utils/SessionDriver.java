@@ -66,7 +66,6 @@ public class SessionDriver {
     }
 
     public void removeDriver(){
-        editor.clear();
-        editor.commit();
+       editor.putString(KEY_IS_DRIVER, null).apply();
     }
 }
