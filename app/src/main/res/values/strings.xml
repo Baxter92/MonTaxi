@@ -70,6 +70,7 @@
     <string name="delete_camera_label">Your current profile\nphoto will be deleted</string>
     <string name="cancel_1">Cancel</string>
     <string name="update_1">Update</string>
+    <string name="reset_pwd">Reset Password</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">

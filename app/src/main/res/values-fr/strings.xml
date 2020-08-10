@@ -69,6 +69,7 @@
     <string name="delete_camera_label">Votre profil actuel\nla photo sera supprimée</string>
     <string name="cancel_1">Annuler</string>
     <string name="update_1">Modifier</string>
+    <string name="reset_pwd">Reinitialiser mot de passe</string>
 
     <string name="skip">Skip</string>
     <string-array name="titles">
