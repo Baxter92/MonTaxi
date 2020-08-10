@@ -179,8 +179,8 @@ public class EditProfilFragment extends Fragment implements View.OnClickListener
                 SwitchFragment(PasswordProfilFragment.newInstance());
                 break;
             case R.id.update:
-                sessionDriver.getDriver().getProfil().setFirst_name(first_nameEdt.getText().toString());
-                sessionDriver.getDriver().getProfil().setFirst_name(last_nameEdt.getText().toString());
+                sessionDriver.getDriver().setProfil(new Profil(first_nameEdt.getText().toString(),last_nameEdt.getText().toString(),
+                        sessionDriver.getDriver().getProfil().getPassword(),"",""));
                 setValue();
                 break;
             case R.id.cancel:
