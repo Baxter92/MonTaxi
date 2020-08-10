@@ -66,6 +66,7 @@
     <string name="nomatch_password">Mot de passe non valide</string>
     <string name="upload_text"><b>Salut %1$s,</b> veuillez télécharger une photo de profil </string>
     <string name="update_done">Bien ! Mot de passe mis à jour</string>
+    <string name="update_failed">Erreur de Mis à Jour Mot de passe </string>
     <string name="delete_camera_label">Votre profil actuel\nla photo sera supprimée</string>
     <string name="cancel_1">Annuler</string>
     <string name="update_1">Modifier</string>

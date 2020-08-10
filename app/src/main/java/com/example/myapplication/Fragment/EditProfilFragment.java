@@ -264,6 +264,8 @@ public class EditProfilFragment extends Fragment implements View.OnClickListener
     public void geterrorVolley(Context context, String error) {
             if (error == null){
                 Config.hideProgressDialog(progressBar);
+                updatedone.setText(getString(R.string.update_failed));
+                updatedone.setTextColor(getResources().getColor(R.color.commentnotsent));
             }
     }
 }
