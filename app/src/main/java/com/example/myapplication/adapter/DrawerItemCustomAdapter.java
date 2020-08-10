@@ -28,7 +28,7 @@ public class DrawerItemCustomAdapter extends BaseAdapter {
     private Context context;
     private List<DrawerModel> dataList;
     DrawerItemClick drawerItemClick;
-    private int mSelectedItem;
+    int selectedPosition = 0;
     private boolean isHomeIcon;
 
     public DrawerItemCustomAdapter(@NonNull Context context, List<DrawerModel> dataList, DrawerItemClick drawerItemClick) {
@@ -74,10 +74,19 @@ public class DrawerItemCustomAdapter extends BaseAdapter {
         ImageView iconImg = (ImageView)
                 convertView.findViewById(R.id.imageViewIcon);
 
-        if (i==0 || i==getCount()-1) {
+        if (i==getCount()-1) {
             convertView.setBackgroundColor(context.getResources().getColor(R.color.taxiapp));
             iconImg.setColorFilter(context.getResources().getColor(R.color.black));
             title.setTextColor(context.getResources().getColor(R.color.black));
+        }
+        if(selectedPosition==i && selectedPosition !=getCount()-1) {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.taxiapp));
+            iconImg.setColorFilter(context.getResources().getColor(R.color.black));
+            title.setTextColor(context.getResources().getColor(R.color.black));
+        }else {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.drawer_color));
+            iconImg.setColorFilter(context.getResources().getColor(R.color.white));
+            title.setTextColor(context.getResources().getColor(R.color.white));
         }
         //sets the text for item name and item description from the current item object
         if (!currentItem.isOnlyIcon()) {
@@ -92,9 +101,9 @@ public class DrawerItemCustomAdapter extends BaseAdapter {
         container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSelectedItem = i;
-                isHomeIcon = false;
+                selectedPosition = i;
                 drawerItemClick.clicked(i);
+                notifyDataSetChanged();
             }
         });
         return convertView;
