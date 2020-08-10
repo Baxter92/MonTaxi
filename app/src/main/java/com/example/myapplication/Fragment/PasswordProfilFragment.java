@@ -90,7 +90,7 @@ public class PasswordProfilFragment extends Fragment implements networksJO {
                 if (!old_passwordEdt.getText().toString().isEmpty()&&!new_passwordEdt.getText().toString().isEmpty()
                 &&!conf_passwordEdt.getText().toString().isEmpty()){
                     if (new_passwordEdt.getText().toString().equals(conf_passwordEdt.getText().toString())){
-                        resetText.setVisibility(View.GONE);
+                        resetText.setVisibility(View.INVISIBLE);
                        // Config.showProgressDialog(progressBar);
                         resetPassword(old_passwordEdt.getText().toString(),new_passwordEdt.getText().toString());
                     }else {
