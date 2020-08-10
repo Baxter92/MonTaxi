@@ -169,9 +169,11 @@ public class EditProfilFragment extends Fragment implements View.OnClickListener
         switch (view.getId()){
             case R.id.update_firstname:
                 first_nameEdt.setEnabled(true);
+                ll_btn.setVisibility(View.VISIBLE);
                 break;
             case R.id.update_lastname:
                 last_nameEdt.setEnabled(true);
+                ll_btn.setVisibility(View.VISIBLE);
                 break;
             case R.id.resetpwd:
                 SwitchFragment(PasswordProfilFragment.newInstance());

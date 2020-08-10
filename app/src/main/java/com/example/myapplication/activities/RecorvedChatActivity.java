@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -25,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.Interface.networksJO;
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.Models.ChatComment;
 import com.example.myapplication.Models.Config;
 import com.example.myapplication.R;
@@ -68,7 +70,10 @@ public class RecorvedChatActivity extends AppCompatActivity implements networksJ
                 //Alert(getString(R.string.comment_sent),false);
                 //phone = "237695797443";
                 if (phone.substring(3).equals(phoneEdt.getText().toString()))
-                    sendChatComment(phoneEdt.getText().toString(),commentEdt.getText().toString());
+                    if (commentEdt.getText().toString().isEmpty())
+                        sendChatComment(phoneEdt.getText().toString(),commentEdt.getText().toString());
+                    else
+                        Alert(getString(R.string.comment_notsent), true);
                 else {
                     Config.showProgressDialog(progressBar);
                     Alert(getString(R.string.comment_notsent), true);
@@ -143,6 +148,19 @@ public class RecorvedChatActivity extends AppCompatActivity implements networksJ
         startActivity(i);
     }
 
+    private void dismiss(){
+        if (progressBar.getVisibility() == View.VISIBLE){
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run()
+                {
+                    hideProgressDialog();
+                    Alert(getString(R.string.comment_notsent),true);
+                }
+            }, 20000);
+        }
+    }
     private void sendChatComment(String phone, String comment){
         showProgressDialog();
         Map<String, String> params = new HashMap<>();
@@ -153,6 +171,7 @@ public class RecorvedChatActivity extends AppCompatActivity implements networksJ
 
         Networks networks = new Networks(RecorvedChatActivity.this, this);
         networks.postData(jsonParams.toString(),Config.chatcomment,new HashMap<String, String>());
+        dismiss();
     }
 
     @Override

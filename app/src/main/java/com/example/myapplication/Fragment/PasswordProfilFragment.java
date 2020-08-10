@@ -41,7 +41,7 @@ public class PasswordProfilFragment extends Fragment implements networksJO {
     private EditText new_passwordEdt;
     private EditText conf_passwordEdt;
     private TextView resetText;
-    private ImageView iv_upload;
+    private Button iv_upload;
     private Button updateBtn, cancelBtn;
     ProgressBar progressBar;
     SessionDriver sessionDriver;
@@ -81,7 +81,7 @@ public class PasswordProfilFragment extends Fragment implements networksJO {
         conf_passwordEdt = (EditText)view.findViewById(R.id.confpassword);
         resetText = (TextView)view.findViewById(R.id.resetpwd);
         progressBar = (ProgressBar)view.findViewById(R.id.progressbar);
-        iv_upload = (ImageView)view.findViewById(R.id.upload);
+        iv_upload = (Button)view.findViewById(R.id.upload);
         updateBtn = (Button)view.findViewById(R.id.update) ;
         cancelBtn = (Button)view.findViewById(R.id.cancel);
         updateBtn.setOnClickListener(new View.OnClickListener() {
