@@ -3,6 +3,7 @@ package com.example.myapplication.Fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,18 +29,28 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.myapplication.Interface.networksJO;
 import com.example.myapplication.MainActivity;
+import com.example.myapplication.Models.Config;
 import com.example.myapplication.Models.Driver;
 import com.example.myapplication.Models.Profil;
 import com.example.myapplication.Models.Utils.SessionDriver;
 import com.example.myapplication.R;
+import com.example.myapplication.Service.Networks;
 import com.example.myapplication.activities.SignInActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static androidx.core.content.ContextCompat.checkSelfPermission;
@@ -48,7 +60,7 @@ import static androidx.core.content.ContextCompat.checkSelfPermission;
  * Use the {@link UploadProfilFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UploadProfilFragment extends Fragment implements View.OnClickListener {
+public class UploadProfilFragment extends Fragment implements View.OnClickListener, networksJO {
 
     private static final int CAMERA_REQUEST = 1888;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
@@ -153,7 +165,29 @@ public class UploadProfilFragment extends Fragment implements View.OnClickListen
             Profil profil = sessionDriver.getDriver().getProfil();
             profil.setPicture(selectedImage.toString());
             ((MainActivity) getActivity()).setIconToolbar(selectedImage,-1);
+            try {
+                if(  selectedImage!=null   ){
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver() , selectedImage);
+                    Upload(getStringImage(bitmap));
+                }
+            }
+            catch (Exception e) {
+                //handle exception
+            }
         }
+    }
+
+    private void Upload(String stringImage) {
+        Map<String,String> params = new HashMap<>();
+        params.put("picture",stringImage);
+        String token = sessionDriver.getDriver().getId();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization",token);
+
+        JSONObject dataJson = new JSONObject(params);
+        Networks networks = new Networks(getActivity(),this);
+        String url = Config.resetProfil+sessionDriver.getDriver().getUserId()+"?access_token="+sessionDriver.getDriver().getId();
+        networks.postData(dataJson.toString(),url,headers);
     }
 
     /**
@@ -229,7 +263,7 @@ public class UploadProfilFragment extends Fragment implements View.OnClickListen
 
     private void setCamera(){
         if (!sessionDriver.getDriver().getProfil().getPicture().equals("")){
-            Uri selectedImage = Uri.parse(sessionDriver.getDriver().getProfil().getPicture());
+            String selectedImage = sessionDriver.getDriver().getProfil().getPicture();
             Glide.with(getActivity())
                     .load(selectedImage)
                     .into(iv_upload);
@@ -243,4 +277,34 @@ public class UploadProfilFragment extends Fragment implements View.OnClickListen
         }
     }
 
+    public String getStringImage(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    @Override
+    public void getVolleyJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
+
+    }
+
+    @Override
+    public void getVolleyFromPostJson(Context context, JSONObject jsonObject, JSONArray jsonArray, int code) {
+        try {
+            Driver driver = sessionDriver.getDriver();
+            String picture = jsonObject.getString("picture");
+            sessionDriver.getDriver().setProfil(new Profil(driver.getProfil().getFirst_name(),
+                    driver.getProfil().getLast_name(),driver.getProfil().getPassword(),picture, driver.getProfil().getTown()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void geterrorVolley(Context context, String error) {
+
+    }
 }
